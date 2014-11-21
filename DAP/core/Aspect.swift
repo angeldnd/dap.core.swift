@@ -1,0 +1,40 @@
+//
+//  Aspect.swift
+//  DAP
+//
+//  Created by YJ Park on 14/10/21.
+//  Copyright (c) 2014年 AngelDnD. All rights reserved.
+//
+
+import Foundation
+
+public protocol Aspect : class, Encodable {
+    var entity: Entity { get }
+    var path: String { get }
+    
+    init(entity: Entity, path: String)
+}
+
+public class BaseAspect : DapObject, Aspect {
+    public unowned let entity: Entity
+    public let path: String
+    
+    public required init(entity: Entity, path: String) {
+        self.entity = entity
+        self.path = path
+    }
+}
+
+public class EntityAspect : Entity, Aspect {
+    public unowned let entity: Entity
+    public let path: String
+    
+    public required init (entity: Entity, path: String) {
+        self.entity = entity
+        self.path = path
+    }
+    
+    public override func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
+        return self.entity.factoryAspect(entity, path: path, data: data)
+    }
+}
