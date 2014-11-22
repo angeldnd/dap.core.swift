@@ -27,12 +27,12 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.1'
   s.requires_arc = true
 
-  s.source_files = 'DAP/**/*.{h,m,swift}'
+  s.source_files = 'DapCore/**/*.{h,m,swift}'
   s.resource_bundles = {
     #'DapCore' => ['Assets/*.png']
   }
 
-  s.public_header_files = 'DAP/**/*.h'
+  s.public_header_files = 'DapCore/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
