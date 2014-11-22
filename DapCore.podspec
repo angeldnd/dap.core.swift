@@ -10,10 +10,9 @@
 Pod::Spec.new do |s|
   s.name             = "DapCore"
   s.version          = "0.1.0"
-  s.summary          = "DAP - Distributed Application Platform, Core Framework (Swift Implementation)"
+  s.summary          = "Distributed Application Platform, Core Framework (Swift Implementation)"
   s.description      = <<-DESC
-                       DAP - Distributed Application Platform, Core Framework (Swift Implementation)
-
+                       TODO
                        * Markdown format.
                        * Don't worry about the indent, we strip it!
                        DESC
@@ -27,12 +26,12 @@ Pod::Spec.new do |s|
   s.platform     = :ios, '8.1'
   s.requires_arc = true
 
-  s.source_files = 'DapCore/**/*.{h,m,swift}'
+  s.source_files = 'DapCore/**/*.swift'
   s.resource_bundles = {
     #'DapCore' => ['Assets/*.png']
   }
 
-  s.public_header_files = 'DapCore/**/*.h'
+  s.public_header_files = 'iOS/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
