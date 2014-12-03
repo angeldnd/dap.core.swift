@@ -1,23 +1,78 @@
-# VAR_CLASS(type, value) #
-```swift
-public class ${type}Var : BaseAspect {
-    public override var type: String? { return Vars.Consts.Type${type}Var }
-    /*
-    public required init(entity: Entity, path: String) {
-        super.init(entity: entity, path: path)
-    }
-    */
-    typealias ValueType = ${type}
-
-    private var _value: ${type} = ${value}
-    public var value: ${type} {
-        get {
-            return _value
-        }
-        set {
-            _value = newValue
-        }
-    }
-}
+# DATA_TYPE(type, swift_type) #
 ```
+public func is${type}(key: String) -> Bool {
+    if let value = _data[key] as? ${swift_type} {
+        return true
+    }
+    return false
+}
+
+public func get${type}(key: String) -> ${swift_type}? {
+    if let value = _data[key] as? ${swift_type} {
+        return value
+    }
+    return nil
+}
+
+public func get${type}(key: String, defaultValue: ${swift_type}) -> ${swift_type} {
+    if let value = _data[key] as? ${swift_type} {
+        return value
+    }
+    return defaultValue
+}
+
+public func set${type}(key: String, value: ${swift_type}) -> Bool {
+    if _data[key] == nil {
+        _data[key] = value
+    }
+    return false
+}
+ 
+``` 
+
+# DATA_NUMBER_TYPE(type, swift_type, ns_type) #
+```
+public func is${type}(key: String) -> Bool {
+    if let _value = _data[key] {
+        if let value = _value as? ${swift_type} {
+            return true
+        } else if let value = _value as? NSNumber {
+            return true
+        }
+    }
+    return false
+}
+
+public func get${type}(key: String) -> ${swift_type}? {
+    if let _value = _data[key] {
+        if let value = _value as? ${swift_type} {
+            return value
+        } else if let value = _value as? NSNumber {
+            return value.${ns_type}Value
+        }
+    }
+    return nil
+}
+
+public func get${type}(key: String, defaultValue: ${swift_type}) -> ${swift_type} {
+    if let _value = _data[key] {
+        if let value = _value as? ${swift_type} {
+            return value
+        } else if let value = _value as? NSNumber {
+            return value.${ns_type}Value
+        }
+    }
+    return defaultValue
+}
+
+public func set${type}(key: String, value: ${swift_type}) -> Bool {
+    if _data[key] == nil {
+        _data[key] = value
+    }
+    return false
+}
+ 
+``` 
+
+
 

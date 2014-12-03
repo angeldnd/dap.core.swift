@@ -9,15 +9,15 @@
 import Foundation
 
 extension Properties {
-    public func dump(data: Data) -> Bool {
-        return encode(data)
+    public func dump() -> Data? {
+        return encode()
     }
     
     public func load(data: Data) -> Bool {
         return decode(data)
     }
     
-    //SILP: PROPERTIES_HELPER(Bool)
+    //SILP: PROPERTIES_HELPER(Bool, Bool)
     public func addBool(path: String, _ value: Bool) -> BoolProperty? { //__SILP__
         if let v: BoolProperty = add(path, value: value) {              //__SILP__
             return v                                                    //__SILP__
@@ -54,44 +54,81 @@ extension Properties {
         }                                                               //__SILP__
         return nil                                                      //__SILP__
     }                                                                   //__SILP__
-    //SILP: PROPERTIES_HELPER(Int)
-    public func addInt(path: String, _ value: Int) -> IntProperty? {  //__SILP__
-        if let v: IntProperty = add(path, value: value) {             //__SILP__
-            return v                                                  //__SILP__
-        }                                                             //__SILP__
-        return nil                                                    //__SILP__
-    }                                                                 //__SILP__
-                                                                      //__SILP__
-    public func removeInt(path: String) -> IntProperty? {             //__SILP__
-        if let v: IntProperty = remove(path) {                        //__SILP__
-            return v                                                  //__SILP__
-        }                                                             //__SILP__
-        return nil                                                    //__SILP__
-    }                                                                 //__SILP__
-                                                                      //__SILP__
-    public func isInt(path: String) -> Bool {                         //__SILP__
-        if let property: IntProperty = get(path) {                    //__SILP__
-            return true                                               //__SILP__
-        }                                                             //__SILP__
-        return false                                                  //__SILP__
-    }                                                                 //__SILP__
-                                                                      //__SILP__
-    public func getInt(path: String) -> Int? {                        //__SILP__
-        if let property: IntProperty = get(path) {                    //__SILP__
-            if let value = property.value {                           //__SILP__
-                return value                                          //__SILP__
-            }                                                         //__SILP__
-        }                                                             //__SILP__
-        return nil                                                    //__SILP__
-    }                                                                 //__SILP__
-                                                                      //__SILP__
-    public func setInt(path: String, _ value: Int) -> Bool? {         //__SILP__
-        if let property: IntProperty = get(path) {                    //__SILP__
-            return property.setValue(value)                           //__SILP__
-        }                                                             //__SILP__
-        return nil                                                    //__SILP__
-    }                                                                 //__SILP__
-    //SILP: PROPERTIES_HELPER(Float)
+    //SILP: PROPERTIES_HELPER(Int, Int32)
+    public func addInt(path: String, _ value: Int32) -> IntProperty? { //__SILP__
+        if let v: IntProperty = add(path, value: value) {              //__SILP__
+            return v                                                   //__SILP__
+        }                                                              //__SILP__
+        return nil                                                     //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public func removeInt(path: String) -> IntProperty? {              //__SILP__
+        if let v: IntProperty = remove(path) {                         //__SILP__
+            return v                                                   //__SILP__
+        }                                                              //__SILP__
+        return nil                                                     //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public func isInt(path: String) -> Bool {                          //__SILP__
+        if let property: IntProperty = get(path) {                     //__SILP__
+            return true                                                //__SILP__
+        }                                                              //__SILP__
+        return false                                                   //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public func getInt(path: String) -> Int32? {                       //__SILP__
+        if let property: IntProperty = get(path) {                     //__SILP__
+            if let value = property.value {                            //__SILP__
+                return value                                           //__SILP__
+            }                                                          //__SILP__
+        }                                                              //__SILP__
+        return nil                                                     //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public func setInt(path: String, _ value: Int32) -> Bool? {        //__SILP__
+        if let property: IntProperty = get(path) {                     //__SILP__
+            return property.setValue(value)                            //__SILP__
+        }                                                              //__SILP__
+        return nil                                                     //__SILP__
+    }                                                                  //__SILP__
+    //SILP: PROPERTIES_HELPER(Long, Int64)
+    public func addLong(path: String, _ value: Int64) -> LongProperty? { //__SILP__
+        if let v: LongProperty = add(path, value: value) {               //__SILP__
+            return v                                                     //__SILP__
+        }                                                                //__SILP__
+        return nil                                                       //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public func removeLong(path: String) -> LongProperty? {              //__SILP__
+        if let v: LongProperty = remove(path) {                          //__SILP__
+            return v                                                     //__SILP__
+        }                                                                //__SILP__
+        return nil                                                       //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public func isLong(path: String) -> Bool {                           //__SILP__
+        if let property: LongProperty = get(path) {                      //__SILP__
+            return true                                                  //__SILP__
+        }                                                                //__SILP__
+        return false                                                     //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public func getLong(path: String) -> Int64? {                        //__SILP__
+        if let property: LongProperty = get(path) {                      //__SILP__
+            if let value = property.value {                              //__SILP__
+                return value                                             //__SILP__
+            }                                                            //__SILP__
+        }                                                                //__SILP__
+        return nil                                                       //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public func setLong(path: String, _ value: Int64) -> Bool? {         //__SILP__
+        if let property: LongProperty = get(path) {                      //__SILP__
+            return property.setValue(value)                              //__SILP__
+        }                                                                //__SILP__
+        return nil                                                       //__SILP__
+    }                                                                    //__SILP__
+    //SILP: PROPERTIES_HELPER(Float, Float)
     public func addFloat(path: String, _ value: Float) -> FloatProperty? { //__SILP__
         if let v: FloatProperty = add(path, value: value) {                //__SILP__
             return v                                                       //__SILP__
@@ -128,7 +165,7 @@ extension Properties {
         }                                                                  //__SILP__
         return nil                                                         //__SILP__
     }                                                                      //__SILP__
-    //SILP: PROPERTIES_HELPER(Double)
+    //SILP: PROPERTIES_HELPER(Double, Double)
     public func addDouble(path: String, _ value: Double) -> DoubleProperty? { //__SILP__
         if let v: DoubleProperty = add(path, value: value) {                  //__SILP__
             return v                                                          //__SILP__
@@ -165,7 +202,7 @@ extension Properties {
         }                                                                     //__SILP__
         return nil                                                            //__SILP__
     }                                                                         //__SILP__
-    //SILP: PROPERTIES_HELPER(String)
+    //SILP: PROPERTIES_HELPER(String, String)
     public func addString(path: String, _ value: String) -> StringProperty? { //__SILP__
         if let v: StringProperty = add(path, value: value) {                  //__SILP__
             return v                                                          //__SILP__

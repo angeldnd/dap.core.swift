@@ -19,17 +19,19 @@ public class Entity : DapObject {
     private var _aspects = [String: Aspect]()
     private var _watchers = [EntityWatcher]()
     
-    public override func encode(data: Data) -> Bool {
-        if !super.encode(data) { return false }
-        
-        var aspectsData = data.newData()
-        for (key, value) in _aspects {
-            var aspectData = data.newData()
-            if encodeAspect(value, data: aspectData) {
-                aspectsData.setData(key, value: aspectData)
+    public override func encode() -> Data? {
+        if let data = super.encode() {
+            var aspectsData = Data()
+            for (key, aspect) in _aspects {
+                if let aspectData = encodeAspect(aspect) {
+                    aspectsData.setData(key, value: aspectData)
+                }
+            }
+            if data.setData(DapObject.Consts.KeyAspects, value: aspectsData) {
+                return data
             }
         }
-        return data.setData(DapObject.Consts.KeyAspects, value: aspectsData)
+        return nil
     }
     
     public override func decode(data: Data) -> Bool {
@@ -52,18 +54,18 @@ public class Entity : DapObject {
         return false
     }
     
-    public func encodeAspect(aspect: Aspect, data: Data) -> Bool {
+    public func encodeAspect(aspect: Aspect) -> Data? {
         /*
          * if use value.encode(aspectData) here, the compiler will
          * crash with segment fault, probably a swift bug.
          */
         switch aspect {
         case let a as BaseAspect:
-            return a.encode(data)
+            return a.encode()
         case let a as EntityAspect:
-            return a.encode(data)
+            return a.encode()
         default:
-            return false
+            return nil
         }
     }
     

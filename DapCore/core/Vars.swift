@@ -17,6 +17,7 @@ public class Vars : EntityAspect {
         
         public static let TypeBoolVar = "BoolVar"
         public static let TypeIntVar = "IntVar"
+        public static let TypeLongVar = "LongVar"
         public static let TypeFloatVar = "FloatVar"
         public static let TypeDoubleVar = "DoubleVar"
         public static let TypeStringVar = "StringVar"

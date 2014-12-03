@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001256F81A2E04C4006F17F4 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 001256F71A2E04C4006F17F4 /* Data.swift */; };
 		00A72EEE1A21043A00D8B84C /* DapCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00A72EE21A21043A00D8B84C /* DapCore.framework */; };
 		00A72EF51A21043A00D8B84C /* DapCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72EF41A21043A00D8B84C /* DapCoreTests.swift */; };
 		00A72F001A2104AB00D8B84C /* DapCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 00A72EFF1A2104AB00D8B84C /* DapCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -18,7 +19,7 @@
 		00A72F241A21050600D8B84C /* Properties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F0B1A21050600D8B84C /* Properties.swift */; };
 		00A72F251A21050600D8B84C /* Property.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F0C1A21050600D8B84C /* Property.swift */; };
 		00A72F261A21050600D8B84C /* Aspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F0E1A21050600D8B84C /* Aspect.swift */; };
-		00A72F271A21050600D8B84C /* Encodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F0F1A21050600D8B84C /* Encodable.swift */; };
+		00A72F271A21050600D8B84C /* DapObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F0F1A21050600D8B84C /* DapObject.swift */; };
 		00A72F281A21050600D8B84C /* Entity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F101A21050600D8B84C /* Entity.swift */; };
 		00A72F2A1A21050600D8B84C /* Var.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F121A21050600D8B84C /* Var.swift */; };
 		00A72F2B1A21050600D8B84C /* Vars.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A72F131A21050600D8B84C /* Vars.swift */; };
@@ -42,6 +43,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		001256F71A2E04C4006F17F4 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		00A72EE21A21043A00D8B84C /* DapCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DapCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A72EED1A21043A00D8B84C /* DapCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DapCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A72EF31A21043A00D8B84C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,7 +58,7 @@
 		00A72F0B1A21050600D8B84C /* Properties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Properties.swift; sourceTree = "<group>"; };
 		00A72F0C1A21050600D8B84C /* Property.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Property.swift; sourceTree = "<group>"; };
 		00A72F0E1A21050600D8B84C /* Aspect.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aspect.swift; sourceTree = "<group>"; };
-		00A72F0F1A21050600D8B84C /* Encodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Encodable.swift; sourceTree = "<group>"; };
+		00A72F0F1A21050600D8B84C /* DapObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DapObject.swift; sourceTree = "<group>"; };
 		00A72F101A21050600D8B84C /* Entity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.swift; sourceTree = "<group>"; };
 		00A72F111A21050600D8B84C /* silp_swift.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = silp_swift.md; sourceTree = "<group>"; };
 		00A72F121A21050600D8B84C /* Var.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Var.swift; sourceTree = "<group>"; };
@@ -173,7 +175,8 @@
 			isa = PBXGroup;
 			children = (
 				00A72F0E1A21050600D8B84C /* Aspect.swift */,
-				00A72F0F1A21050600D8B84C /* Encodable.swift */,
+				001256F71A2E04C4006F17F4 /* Data.swift */,
+				00A72F0F1A21050600D8B84C /* DapObject.swift */,
 				00A72F101A21050600D8B84C /* Entity.swift */,
 				00A72F111A21050600D8B84C /* silp_swift.md */,
 				00A72F121A21050600D8B84C /* Var.swift */,
@@ -320,7 +323,7 @@
 			files = (
 				00A72F251A21050600D8B84C /* Property.swift in Sources */,
 				00A72F2C1A21050600D8B84C /* ContextHelper.swift in Sources */,
-				00A72F271A21050600D8B84C /* Encodable.swift in Sources */,
+				00A72F271A21050600D8B84C /* DapObject.swift in Sources */,
 				00A72F241A21050600D8B84C /* Properties.swift in Sources */,
 				00A72F211A21050600D8B84C /* Context.swift in Sources */,
 				00A72F321A21050600D8B84C /* Registry.swift in Sources */,
@@ -329,6 +332,7 @@
 				00A72F331A21050600D8B84C /* PathMatcher.swift in Sources */,
 				00A72F1F1A21050600D8B84C /* Channel.swift in Sources */,
 				00A72F2D1A21050600D8B84C /* PropertiesHelper.swift in Sources */,
+				001256F81A2E04C4006F17F4 /* Data.swift in Sources */,
 				00A72F281A21050600D8B84C /* Entity.swift in Sources */,
 				00A72F2B1A21050600D8B84C /* Vars.swift in Sources */,
 				00A72F221A21050600D8B84C /* Handler.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Handlers : EntityAspect, Encodable {
+public class Handlers : EntityAspect {
     public struct Consts {
         static let Separator = "."
     }

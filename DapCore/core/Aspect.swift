@@ -8,7 +8,7 @@
 
 import Foundation
 
-public protocol Aspect : class, Encodable {
+public protocol Aspect : class {
     var entity: Entity { get }
     var path: String { get }
     

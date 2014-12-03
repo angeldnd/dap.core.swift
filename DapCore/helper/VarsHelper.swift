@@ -9,7 +9,7 @@
 import Foundation
 
 extension Vars {
-    //SILP: VARS_HELPER(Bool)
+    //SILP: VARS_HELPER(Bool, Bool)
     public func addBool(path: String, _ value: Bool) -> BoolVar? {    //__SILP__
         if let v: BoolVar = add(path, value: value) {                 //__SILP__
             return v                                                  //__SILP__
@@ -44,8 +44,8 @@ extension Vars {
         }                                                             //__SILP__
         return nil                                                    //__SILP__
     }                                                                 //__SILP__
-    //SILP: VARS_HELPER(Int)
-    public func addInt(path: String, _ value: Int) -> IntVar? {       //__SILP__
+    //SILP: VARS_HELPER(Int, Int32)
+    public func addInt(path: String, _ value: Int32) -> IntVar? {     //__SILP__
         if let v: IntVar = add(path, value: value) {                  //__SILP__
             return v                                                  //__SILP__
         }                                                             //__SILP__
@@ -66,20 +66,55 @@ extension Vars {
         return false                                                  //__SILP__
     }                                                                 //__SILP__
                                                                       //__SILP__
-    public func getInt(path: String) -> Int? {                        //__SILP__
+    public func getInt(path: String) -> Int32? {                      //__SILP__
         if let v: IntVar = get(path) {                                //__SILP__
             return v.value                                            //__SILP__
         }                                                             //__SILP__
         return nil                                                    //__SILP__
     }                                                                 //__SILP__
                                                                       //__SILP__
-    public func setInt(path: String, _ value: Int) -> Bool? {         //__SILP__
+    public func setInt(path: String, _ value: Int32) -> Bool? {       //__SILP__
         if let v: IntVar = get(path) {                                //__SILP__
             return v.setValue(value)                                  //__SILP__
         }                                                             //__SILP__
         return nil                                                    //__SILP__
     }                                                                 //__SILP__
-    //SILP: VARS_HELPER(Float)
+    //SILP: VARS_HELPER(Long, Int64)
+    public func addLong(path: String, _ value: Int64) -> LongVar? {   //__SILP__
+        if let v: LongVar = add(path, value: value) {                 //__SILP__
+            return v                                                  //__SILP__
+        }                                                             //__SILP__
+        return nil                                                    //__SILP__
+    }                                                                 //__SILP__
+                                                                      //__SILP__
+    public func removeLong(path: String) -> LongVar? {                //__SILP__
+        if let v: LongVar = remove(path) {                            //__SILP__
+            return v                                                  //__SILP__
+        }                                                             //__SILP__
+        return nil                                                    //__SILP__
+    }                                                                 //__SILP__
+                                                                      //__SILP__
+    public func isLong(path: String) -> Bool {                        //__SILP__
+        if let v: LongVar = get(path) {                               //__SILP__
+            return true                                               //__SILP__
+        }                                                             //__SILP__
+        return false                                                  //__SILP__
+    }                                                                 //__SILP__
+                                                                      //__SILP__
+    public func getLong(path: String) -> Int64? {                     //__SILP__
+        if let v: LongVar = get(path) {                               //__SILP__
+            return v.value                                            //__SILP__
+        }                                                             //__SILP__
+        return nil                                                    //__SILP__
+    }                                                                 //__SILP__
+                                                                      //__SILP__
+    public func setLong(path: String, _ value: Int64) -> Bool? {      //__SILP__
+        if let v: LongVar = get(path) {                               //__SILP__
+            return v.setValue(value)                                  //__SILP__
+        }                                                             //__SILP__
+        return nil                                                    //__SILP__
+    }                                                                 //__SILP__
+    //SILP: VARS_HELPER(Float, Float)
     public func addFloat(path: String, _ value: Float) -> FloatVar? { //__SILP__
         if let v: FloatVar = add(path, value: value) {                //__SILP__
             return v                                                  //__SILP__
@@ -114,7 +149,7 @@ extension Vars {
         }                                                             //__SILP__
         return nil                                                    //__SILP__
     }                                                                 //__SILP__
-    //SILP: VARS_HELPER(Double)
+    //SILP: VARS_HELPER(Double, Double)
     public func addDouble(path: String, _ value: Double) -> DoubleVar? { //__SILP__
         if let v: DoubleVar = add(path, value: value) {                  //__SILP__
             return v                                                     //__SILP__
@@ -149,7 +184,7 @@ extension Vars {
         }                                                                //__SILP__
         return nil                                                       //__SILP__
     }                                                                    //__SILP__
-    //SILP: VARS_HELPER(String)
+    //SILP: VARS_HELPER(String, String)
     public func addString(path: String, _ value: String) -> StringVar? { //__SILP__
         if let v: StringVar = add(path, value: value) {                  //__SILP__
             return v                                                     //__SILP__

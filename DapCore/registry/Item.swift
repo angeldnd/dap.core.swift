@@ -42,8 +42,13 @@ public class Item : Context, Aspect {
         return self.registry?.factoryAspect(entity, path: path, data: data)
     }
     
-    public override func encode(data: Data) -> Bool {
-        return super.encode(data) && data.setString(DapObject.Consts.KeyPath, value: path)
+    public override func encode() -> Data? {
+        if let data = super.encode() {
+            if data.setString(DapObject.Consts.KeyPath, value: path) {
+                return data
+            }
+        }
+        return nil
     }
     
     public override func decode(data: Data) -> Bool {
@@ -55,11 +60,11 @@ public class Item : Context, Aspect {
         return false
     }
     
-    public override func encodeAspect(aspect: Aspect, data: Data) -> Bool {
+    public override func encodeAspect(aspect: Aspect) -> Data? {
         if let item = aspect as? Item {
-            return item.encode(data)
+            return item.encode()
         }
-        return super.encodeAspect(aspect, data: data)
+        return super.encodeAspect(aspect)
     }
     
     public override func decodeAspect(aspect: Aspect, data: Data) -> Bool {

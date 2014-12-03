@@ -9,7 +9,8 @@
 import Foundation
 
 public typealias BoolProperty = Property<Bool>
-public typealias IntProperty = Property<Int>
+public typealias IntProperty = Property<Int32>
+public typealias LongProperty = Property<Int64>
 public typealias FloatProperty = Property<Float>
 public typealias DoubleProperty = Property<Double>
 public typealias StringProperty = Property<String>
@@ -19,8 +20,10 @@ public class Property<T: Equatable> : Var<T> {
         switch T.self {
         case is Bool.Type:
             return Properties.Consts.TypeBoolProperty
-        case is Int.Type:
+        case is Int32.Type:
             return Properties.Consts.TypeIntProperty
+        case is Int64.Type:
+            return Properties.Consts.TypeLongProperty
         case is Float.Type:
             return Properties.Consts.TypeFloatProperty
         case is Double.Type:

@@ -14,7 +14,7 @@ public class Handler : Channel {
     }
     
     func onHandle(path: String, data: Data) -> Data {
-        return data.newData()
+        return Data()
     }
     
     public final func handle(data: Data) -> Data? {
