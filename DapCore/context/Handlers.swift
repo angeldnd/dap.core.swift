@@ -15,32 +15,59 @@ public class Handlers : EntityAspect {
 
     public override var separator: String { return Handlers.Consts.Separator }
     
-    /*
-     * For unknown reason, here can't specify T: Handler, so this method is just
-     * a name, not really cheking type.
-     */
-    public func addHandler<T: Aspect>(path: String) -> T? {
-        let handler: T? = add(path)
+    public func addHandler(handlerPath: String) -> Handler? {
+        let handler: Handler? = add(handlerPath)
         return handler
     }
     
-    public func addHandlerListener(path: String, listener: ChannelListener) -> Bool {
-        if let channel: Channel = get(path) {
-            return channel.addListener(listener)
-        }
-        return false
-    }
+    //SILP: ADD_REMOVE_HELPER(RequestChecker, handlerPath, handler, Handler, RequestChecker, checker, DataChecker)
+    public func addRequestChecker(handlerPath: String, checker: DataChecker) -> Bool {    //__SILP__
+        if let handler: Handler = get(handlerPath) {                                      //__SILP__
+            return handler.addRequestChecker(checker)                                     //__SILP__
+        }                                                                                 //__SILP__
+        return false                                                                      //__SILP__
+    }                                                                                     //__SILP__
+                                                                                          //__SILP__
+    public func removeRequestChecker(handlerPath: String, checker: DataChecker) -> Bool { //__SILP__
+        if let handler: Handler = get(handlerPath) {                                      //__SILP__
+            return handler.removeRequestChecker(checker)                                  //__SILP__
+        }                                                                                 //__SILP__
+        return false                                                                      //__SILP__
+    }                                                                                     //__SILP__
     
-    public func removeHandlerListener(path: String, listener: ChannelListener) -> Bool {
-        if let channel: Channel = get(path) {
-            return channel.removeListener(listener)
-        }
-        return false
-    }
+    //SILP: ADD_REMOVE_HELPER(RequestListener, handlerPath, handler, Handler, RequestListener, listener, RequestListener)
+    public func addRequestListener(handlerPath: String, listener: RequestListener) -> Bool {    //__SILP__
+        if let handler: Handler = get(handlerPath) {                                            //__SILP__
+            return handler.addRequestListener(listener)                                         //__SILP__
+        }                                                                                       //__SILP__
+        return false                                                                            //__SILP__
+    }                                                                                           //__SILP__
+                                                                                                //__SILP__
+    public func removeRequestListener(handlerPath: String, listener: RequestListener) -> Bool { //__SILP__
+        if let handler: Handler = get(handlerPath) {                                            //__SILP__
+            return handler.removeRequestListener(listener)                                      //__SILP__
+        }                                                                                       //__SILP__
+        return false                                                                            //__SILP__
+    }                                                                                           //__SILP__
     
-    public func handle(path: String, data: Data) -> Data? {
+    //SILP: ADD_REMOVE_HELPER(ResponseListener, handlerPath, handler, Handler, ResponseListener, listener, ResponseListener)
+    public func addResponseListener(handlerPath: String, listener: ResponseListener) -> Bool {    //__SILP__
+        if let handler: Handler = get(handlerPath) {                                              //__SILP__
+            return handler.addResponseListener(listener)                                          //__SILP__
+        }                                                                                         //__SILP__
+        return false                                                                              //__SILP__
+    }                                                                                             //__SILP__
+                                                                                                  //__SILP__
+    public func removeResponseListener(handlerPath: String, listener: ResponseListener) -> Bool { //__SILP__
+        if let handler: Handler = get(handlerPath) {                                              //__SILP__
+            return handler.removeResponseListener(listener)                                       //__SILP__
+        }                                                                                         //__SILP__
+        return false                                                                              //__SILP__
+    }                                                                                             //__SILP__
+    
+    public func handleRequest(path: String, req: Data?) -> Data? {
         if let handler: Handler = get(path) {
-            return handler.handle(data)
+            return handler.handleRequest(req)
         }
         return nil
     }

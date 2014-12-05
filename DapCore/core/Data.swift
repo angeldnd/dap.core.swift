@@ -15,6 +15,10 @@ import Foundation
 *
 */
 
+public protocol DataChecker : class {
+    func isValid(data: Data?) -> Bool
+}
+
 @objc public final class Data {
     public enum DataType: Int32 {
         case BOOL = 1

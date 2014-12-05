@@ -74,5 +74,46 @@ public func set${type}(key: String, value: ${swift_type}) -> Bool {
  
 ``` 
 
+# VAR_CLASS(type, swift_type) #
+```
+public class ${type}Var : BaseAspect, Var {
+    public typealias ValueType = ${swift_type}
+    
+    public override var type: String? {
+        return Vars.Consts.Type${type}Var
+    }
+    
+    public required init(entity: Entity, path: String) {
+        super.init(entity: entity, path: path)
+    }
+    
+    private var _value: ${swift_type}?
+    public var value: ${swift_type}? {
+        return _value
+    }
+    
+    public func setValue(newValue: ${swift_type}?) -> Bool {
+        _value = newValue
+        return true
+    }
+    
+    public override func encode() -> Data? {
+        if let data = super.encode() {
+            if _value != nil {
+                if data.set${type}(Vars.Consts.KeyValue, value: _value!) {
+                    return data
+                }
+            }
+        }
+        return nil;
+    }
+    
+    public override func decode(data: Data) -> Bool {
+        if !super.decode(data) { return false }
+        
+        _value = data.get${type}(Vars.Consts.KeyValue)
+        return true;
+    }
+}
 
-
+```

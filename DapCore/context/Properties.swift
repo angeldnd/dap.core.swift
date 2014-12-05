@@ -23,47 +23,41 @@ public class Properties : EntityAspect {
 
     public override var type: String? { return Consts.TypeProperties }
     
-    public final func add<T: Equatable>(path: String, value: T?) -> Property<T>? {
-        let property = Property<T>(entity: self, path: path)
-        if addAspect(property) {
+    public final func addProperty<T: Property>(path: String, value: T.ValueType?) -> T? {
+        if let property: T = add(path) {
             property.setValue(value)
             return property
         }
         return nil
     }
     
-    public final func addWatcher<T: Equatable>(path: String, watcher: Property<T>.ValueWatcher) -> Property<T>? {
-        if let property: Property<T> = get(path) {
-            property.addWatcher(watcher)
-        }
-        return nil
-    }
+    //SILP: ADD_REMOVE_HELPER(ValueChecker<T: Property>, propertyPath, property, T, ValueChecker, checker, T.ValueChecker)
+    public func addValueChecker<T: Property>(propertyPath: String, checker: T.ValueChecker) -> Bool {    //__SILP__
+        if let property: T = get(propertyPath) {                                                         //__SILP__
+            return property.addValueChecker(checker)                                                     //__SILP__
+        }                                                                                                //__SILP__
+        return false                                                                                     //__SILP__
+    }                                                                                                    //__SILP__
+                                                                                                         //__SILP__
+    public func removeValueChecker<T: Property>(propertyPath: String, checker: T.ValueChecker) -> Bool { //__SILP__
+        if let property: T = get(propertyPath) {                                                         //__SILP__
+            return property.removeValueChecker(checker)                                                  //__SILP__
+        }                                                                                                //__SILP__
+        return false                                                                                     //__SILP__
+    }                                                                                                    //__SILP__
     
-    public final func addChecker<T: Equatable>(path: String, checker: Property<T>.ValueChecker) -> Property<T>? {
-        if let property: Property<T> = get(path) {
-            property.addChecker(checker)
-        }
-        return nil
-    }
-    
-    public final func getValue<T: Equatable>(path: String) -> T? {
-        if let property: Property<T> = get(path) {
-            return property.value
-        }
-        return nil
-    }
-    
-    public final func getValue<T: Equatable>(path: String, hint: T) -> T? {
-        if let property: Property<T> = get(path) {
-            return property.value
-        }
-        return nil
-    }
-    
-    public final func setValue<T: Equatable>(path: String, value: T?) -> Bool {
-        if let property: Property<T> = get(path) {
-            return property.setValue(value)
-        }
-        return false
-    }
+    //SILP: ADD_REMOVE_HELPER(ValueWatcher<T: Property>, propertyPath, property, T, ValueWatcher, checker, T.ValueWatcher)
+    public func addValueWatcher<T: Property>(propertyPath: String, checker: T.ValueWatcher) -> Bool {    //__SILP__
+        if let property: T = get(propertyPath) {                                                         //__SILP__
+            return property.addValueWatcher(checker)                                                     //__SILP__
+        }                                                                                                //__SILP__
+        return false                                                                                     //__SILP__
+    }                                                                                                    //__SILP__
+                                                                                                         //__SILP__
+    public func removeValueWatcher<T: Property>(propertyPath: String, checker: T.ValueWatcher) -> Bool { //__SILP__
+        if let property: T = get(propertyPath) {                                                         //__SILP__
+            return property.removeValueWatcher(checker)                                                  //__SILP__
+        }                                                                                                //__SILP__
+        return false                                                                                     //__SILP__
+    }                                                                                                    //__SILP__
 }

@@ -60,21 +60,19 @@ public final class Factory: Entity {
     }
     
     public final func registerEntity(type: String, factory: EntityFactory) -> Bool {
-        return entities.add(type, value: factory) != nil
+        return entities.addAnyVar(type, value: factory) != nil
     }
     
     public final func registerAspect(type: String, factory: AspectFactory) -> Bool {
-        return aspects.add(type, value: factory) != nil
+        return aspects.addAnyVar(type, value: factory) != nil
     }
     
     public final override func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
         if let type = data.getString(DapObject.Consts.KeyType) {
-            if let factory:AspectFactory = aspects.getValue(type) {
+            if let factory: AspectFactory = aspects.getAnyValue(type) {
                 return factory(entity, path)
             }
-            println("DDDDDKKKKKK -> \(type)")
         }
-        println("DDDDDKKKKKK -> \(path)")
         return nil
     }
 }

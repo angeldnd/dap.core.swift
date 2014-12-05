@@ -26,8 +26,16 @@ public class Vars : EntityAspect {
     }
     public override var type: String? { return Vars.Consts.TypeVars }
     
-    public final func add<T>(path: String, value: T?) -> Var<T>? {
-        let v = Var<T>(entity: self, path: path)
+    public final func addVar<T: Var>(varPath: String, value: T.ValueType?) -> T? {
+        if let v: T = add(varPath) {
+            v.setValue(value)
+            return v
+        }
+        return nil
+    }
+    
+    public final func addAnyVar<T>(varPath: String, value: T) -> AnyVar<T>? {
+        let v = AnyVar<T>(entity: self, path: varPath)
         if addAspect(v) {
             v.setValue(value)
             return v
@@ -35,22 +43,22 @@ public class Vars : EntityAspect {
         return nil
     }
     
-    public final func getValue<T>(path: String) -> T? {
-        if let v: Var<T> = get(path) {
+    public final func getAnyValue<T>(varPath: String) -> T? {
+        if let v: AnyVar<T> = get(varPath) {
             return v.value
         }
         return nil
     }
     
-    public final func getValue<T>(path: String, hint: T) -> T? {
-        if let v: Var<T> = get(path) {
+    public final func getAnyValue<T>(varPath: String, hint: T) -> T? {
+        if let v: AnyVar<T> = get(varPath) {
             return v.value
         }
         return nil
     }
     
-    public final func setValue<T>(path: String, value: T?) {
-        if let v: Var<T> = get(path) {
+    public final func setAnyValue<T>(varPath: String, value: T?) {
+        if let v: AnyVar<T> = get(varPath) {
             v.setValue(value)
         }
     }

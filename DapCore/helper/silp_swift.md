@@ -1,7 +1,7 @@
 # PROPERTIES_HELPER(type, swift_type) #
 ```swift
 public func add${type}(path: String, _ value: ${swift_type}) -> ${type}Property? {
-    if let v: ${type}Property = add(path, value: value) {
+    if let v: ${type}Property = addProperty(path, value: value) {
         return v
     }            
     return nil
@@ -41,7 +41,7 @@ public func set${type}(path: String, _ value: ${swift_type}) -> Bool? {
 # VARS_HELPER(type, swift_type) #
 ```swift
 public func add${type}(path: String, _ value: ${swift_type}) -> ${type}Var? {
-    if let v: ${type}Var = add(path, value: value) {
+    if let v: ${type}Var = addVar(path, value: value) {
         return v
     }            
     return nil

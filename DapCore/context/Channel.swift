@@ -8,80 +8,78 @@
 
 import Foundation
 
-public protocol DataChecker : class {
-    func isValid(data: Data?) -> Bool
+public protocol EventListener : class {
+    func onEvent(channelPath: String, evt: Data?) -> Void
 }
 
-public protocol ChannelListener : class {
-    func onReceive(path: String, data: Data?) -> Void
-}
-
-public class Channel : BaseAspect {
+public final class Channel : BaseAspect {
     public required init(entity: Entity, path: String) {
         super.init(entity: entity, path: path)
     }
     
-    private var _checkers = [DataChecker]()
-    private var _listeners = [ChannelListener]()
+    private var _eventCheckers = [DataChecker]()
+    private var _eventListeners = [EventListener]()
     
-    private func getIndexOfListener(listener: ChannelListener) -> Int? {
-        for (i, obj) in enumerate(_listeners) {
-            if obj === listener {
-                return i
-            }
-        }
-        return nil
-    }
+    //SILP: DECLARE_LIST(EventChecker, listener, DataChecker, _eventCheckers)
+    private func getIndexOfEventChecker(listener: DataChecker) -> Int? {  //__SILP__
+        for (i, obj) in enumerate(_eventCheckers) {                       //__SILP__
+            if obj === listener {                                         //__SILP__
+                return i                                                  //__SILP__
+            }                                                             //__SILP__
+        }                                                                 //__SILP__
+        return nil                                                        //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public final func addEventChecker(listener: DataChecker) -> Bool {    //__SILP__
+        if getIndexOfEventChecker(listener) == nil {                      //__SILP__
+            _eventCheckers.append(listener)                               //__SILP__
+            return true                                                   //__SILP__
+        }                                                                 //__SILP__
+        return false                                                      //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public final func removeEventChecker(listener: DataChecker) -> Bool { //__SILP__
+        if let index = getIndexOfEventChecker(listener) {                 //__SILP__
+            _eventCheckers.removeAtIndex(index)                           //__SILP__
+            return true                                                   //__SILP__
+        }                                                                 //__SILP__
+        return false                                                      //__SILP__
+    }                                                                     //__SILP__
     
-    public final func addListener(listener: ChannelListener) -> Bool {
-        if getIndexOfListener(listener) == nil {
-            _listeners.append(listener)
-            return true
-        }
-        return false
-    }
-   
-    public final func removeListener(listener: ChannelListener) -> Bool {
-        if let index = getIndexOfListener(listener) {
-            _listeners.removeAtIndex(index)
-            return true
-        }
-        return false
-    }
+    //SILP: DECLARE_LIST(EventListener, listener, EventListener, _eventListeners)
+    private func getIndexOfEventListener(listener: EventListener) -> Int? {  //__SILP__
+        for (i, obj) in enumerate(_eventListeners) {                         //__SILP__
+            if obj === listener {                                            //__SILP__
+                return i                                                     //__SILP__
+            }                                                                //__SILP__
+        }                                                                    //__SILP__
+        return nil                                                           //__SILP__
+    }                                                                        //__SILP__
+                                                                             //__SILP__
+    public final func addEventListener(listener: EventListener) -> Bool {    //__SILP__
+        if getIndexOfEventListener(listener) == nil {                        //__SILP__
+            _eventListeners.append(listener)                                 //__SILP__
+            return true                                                      //__SILP__
+        }                                                                    //__SILP__
+        return false                                                         //__SILP__
+    }                                                                        //__SILP__
+                                                                             //__SILP__
+    public final func removeEventListener(listener: EventListener) -> Bool { //__SILP__
+        if let index = getIndexOfEventListener(listener) {                   //__SILP__
+            _eventListeners.removeAtIndex(index)                             //__SILP__
+            return true                                                      //__SILP__
+        }                                                                    //__SILP__
+        return false                                                         //__SILP__
+    }                                                                        //__SILP__
     
-    private func getIndexOfChecker(checker: DataChecker) -> Int? {
-        for (i, obj) in enumerate(_checkers) {
-            if obj === checker {
-                return i
-            }
-        }
-        return nil
-    }
-    
-    public final func addChecker(checker: DataChecker) -> Bool {
-        if getIndexOfChecker(checker) == nil {
-            _checkers.append(checker)
-            return true
-        }
-        return false
-    }
-   
-    public final func removeChecker(checker: DataChecker) -> Bool {
-        if let index = getIndexOfChecker(checker) {
-            _checkers.removeAtIndex(index)
-            return true
-        }
-        return false
-    }
-    
-    public final func send(data: Data?) -> Bool {
-        for checker in _checkers {
-            if !checker.isValid(data) {
+    public final func fireEvent(evt: Data?) -> Bool {
+        for checker in _eventCheckers {
+            if !checker.isValid(evt) {
                 return false
             }
         }
-        for listener in _listeners {
-            listener.onReceive(path, data: data)
+        for listener in _eventListeners {
+            listener.onEvent(path, evt: evt)
         }
         return true
     }

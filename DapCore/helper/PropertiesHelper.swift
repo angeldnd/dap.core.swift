@@ -8,18 +8,10 @@
 
 import Foundation
 
-extension Properties {
-    public func dump() -> Data? {
-        return encode()
-    }
-    
-    public func load(data: Data) -> Bool {
-        return decode(data)
-    }
-    
+extension Properties {   
     //SILP: PROPERTIES_HELPER(Bool, Bool)
     public func addBool(path: String, _ value: Bool) -> BoolProperty? { //__SILP__
-        if let v: BoolProperty = add(path, value: value) {              //__SILP__
+        if let v: BoolProperty = addProperty(path, value: value) {      //__SILP__
             return v                                                    //__SILP__
         }                                                               //__SILP__
         return nil                                                      //__SILP__
@@ -56,7 +48,7 @@ extension Properties {
     }                                                                   //__SILP__
     //SILP: PROPERTIES_HELPER(Int, Int32)
     public func addInt(path: String, _ value: Int32) -> IntProperty? { //__SILP__
-        if let v: IntProperty = add(path, value: value) {              //__SILP__
+        if let v: IntProperty = addProperty(path, value: value) {      //__SILP__
             return v                                                   //__SILP__
         }                                                              //__SILP__
         return nil                                                     //__SILP__
@@ -93,7 +85,7 @@ extension Properties {
     }                                                                  //__SILP__
     //SILP: PROPERTIES_HELPER(Long, Int64)
     public func addLong(path: String, _ value: Int64) -> LongProperty? { //__SILP__
-        if let v: LongProperty = add(path, value: value) {               //__SILP__
+        if let v: LongProperty = addProperty(path, value: value) {       //__SILP__
             return v                                                     //__SILP__
         }                                                                //__SILP__
         return nil                                                       //__SILP__
@@ -130,7 +122,7 @@ extension Properties {
     }                                                                    //__SILP__
     //SILP: PROPERTIES_HELPER(Float, Float)
     public func addFloat(path: String, _ value: Float) -> FloatProperty? { //__SILP__
-        if let v: FloatProperty = add(path, value: value) {                //__SILP__
+        if let v: FloatProperty = addProperty(path, value: value) {        //__SILP__
             return v                                                       //__SILP__
         }                                                                  //__SILP__
         return nil                                                         //__SILP__
@@ -167,7 +159,7 @@ extension Properties {
     }                                                                      //__SILP__
     //SILP: PROPERTIES_HELPER(Double, Double)
     public func addDouble(path: String, _ value: Double) -> DoubleProperty? { //__SILP__
-        if let v: DoubleProperty = add(path, value: value) {                  //__SILP__
+        if let v: DoubleProperty = addProperty(path, value: value) {          //__SILP__
             return v                                                          //__SILP__
         }                                                                     //__SILP__
         return nil                                                            //__SILP__
@@ -204,7 +196,7 @@ extension Properties {
     }                                                                         //__SILP__
     //SILP: PROPERTIES_HELPER(String, String)
     public func addString(path: String, _ value: String) -> StringProperty? { //__SILP__
-        if let v: StringProperty = add(path, value: value) {                  //__SILP__
+        if let v: StringProperty = addProperty(path, value: value) {          //__SILP__
             return v                                                          //__SILP__
         }                                                                     //__SILP__
         return nil                                                            //__SILP__

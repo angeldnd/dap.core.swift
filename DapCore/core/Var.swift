@@ -8,32 +8,14 @@
 
 import Foundation
 
-public typealias BoolVar = Var<Bool>
-public typealias IntVar = Var<Int32>
-public typealias LongVar = Var<Int64>
-public typealias FloatVar = Var<Float>
-public typealias DoubleVar = Var<Double>
-public typealias StringVar = Var<String>
+public protocol Var : Aspect {
+    typealias ValueType
+    var value: ValueType? { get }
+    func setValue(newValue: ValueType?) -> Bool
+}
 
-public class Var<T> : BaseAspect {
-   public override var type: String? {
-        switch T.self {
-        case is Bool.Type:
-            return Vars.Consts.TypeBoolVar
-        case is Int32.Type:
-            return Vars.Consts.TypeIntVar
-        case is Int64.Type:
-            return Vars.Consts.TypeLongVar
-        case is Float.Type:
-            return Vars.Consts.TypeFloatVar
-        case is Double.Type:
-            return Vars.Consts.TypeDoubleVar
-        case is String.Type:
-            return Vars.Consts.TypeStringVar
-        default:
-            return nil;
-        }
-    }
+public class AnyVar<T> : BaseAspect {
+    public typealias ValueType = T
     
     public required init(entity: Entity, path: String) {
         super.init(entity: entity, path: path)
@@ -48,53 +30,251 @@ public class Var<T> : BaseAspect {
         _value = newValue
         return true
     }
-    
-    public override func encode() -> Data? {
-        if let data = super.encode() {
-            if _value != nil {
-                var succeed = false
-                switch T.self {
-                case is Bool.Type:
-                    succeed = data.setBool(Vars.Consts.KeyValue, value: _value as Bool)
-                case is Int32.Type:
-                    succeed = data.setInt(Vars.Consts.KeyValue, value: _value as Int32)
-                case is Int64.Type:
-                    succeed = data.setLong(Vars.Consts.KeyValue, value: _value as Int64)
-                case is Float.Type:
-                    succeed = data.setFloat(Vars.Consts.KeyValue, value: _value as Float)
-                case is Double.Type:
-                    succeed = data.setDouble(Vars.Consts.KeyValue, value: _value as Double)
-                case is String.Type:
-                    succeed = data.setString(Vars.Consts.KeyValue, value: _value as String)
-                default:
-                    succeed = false
-                }
-                if (succeed) {
-                    return data
-                }
-            }
-        }
-        return nil;
-    }
-    
-    public override func decode(data: Data) -> Bool {
-        if !super.decode(data) { return false }
-        
-        switch T.self {
-        case is Bool.Type:
-            _value = data.getBool(Vars.Consts.KeyValue) as? T
-        case is Int32.Type:
-            _value = data.getInt(Vars.Consts.KeyValue) as? T
-        case is Int64.Type:
-            _value = data.getLong(Vars.Consts.KeyValue) as? T
-        case is Float.Type:
-            _value = data.getFloat(Vars.Consts.KeyValue) as? T
-        case is Double.Type:
-            _value = data.getDouble(Vars.Consts.KeyValue) as? T
-        case is String.Type:
-            _value = data.getString(Vars.Consts.KeyValue) as? T
-        default:
-            return false;
-        }
-        return true;
-    }}
+ }
+
+//SILP: VAR_CLASS(Bool, Bool)
+public class BoolVar : BaseAspect, Var {                                //__SILP__
+    public typealias ValueType = Bool                                   //__SILP__
+                                                                        //__SILP__
+    public override var type: String? {                                 //__SILP__
+        return Vars.Consts.TypeBoolVar                                  //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public required init(entity: Entity, path: String) {                //__SILP__
+        super.init(entity: entity, path: path)                          //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    private var _value: Bool?                                           //__SILP__
+    public var value: Bool? {                                           //__SILP__
+        return _value                                                   //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public func setValue(newValue: Bool?) -> Bool {                     //__SILP__
+        _value = newValue                                               //__SILP__
+        return true                                                     //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public override func encode() -> Data? {                            //__SILP__
+        if let data = super.encode() {                                  //__SILP__
+            if _value != nil {                                          //__SILP__
+                if data.setBool(Vars.Consts.KeyValue, value: _value!) { //__SILP__
+                    return data                                         //__SILP__
+                }                                                       //__SILP__
+            }                                                           //__SILP__
+        }                                                               //__SILP__
+        return nil;                                                     //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public override func decode(data: Data) -> Bool {                   //__SILP__
+        if !super.decode(data) { return false }                         //__SILP__
+                                                                        //__SILP__
+        _value = data.getBool(Vars.Consts.KeyValue)                     //__SILP__
+        return true;                                                    //__SILP__
+    }                                                                   //__SILP__
+}                                                                       //__SILP__
+                                                                        //__SILP__
+//SILP: VAR_CLASS(Int, Int32)
+public class IntVar : BaseAspect, Var {                                //__SILP__
+    public typealias ValueType = Int32                                 //__SILP__
+                                                                       //__SILP__
+    public override var type: String? {                                //__SILP__
+        return Vars.Consts.TypeIntVar                                  //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public required init(entity: Entity, path: String) {               //__SILP__
+        super.init(entity: entity, path: path)                         //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    private var _value: Int32?                                         //__SILP__
+    public var value: Int32? {                                         //__SILP__
+        return _value                                                  //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public func setValue(newValue: Int32?) -> Bool {                   //__SILP__
+        _value = newValue                                              //__SILP__
+        return true                                                    //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public override func encode() -> Data? {                           //__SILP__
+        if let data = super.encode() {                                 //__SILP__
+            if _value != nil {                                         //__SILP__
+                if data.setInt(Vars.Consts.KeyValue, value: _value!) { //__SILP__
+                    return data                                        //__SILP__
+                }                                                      //__SILP__
+            }                                                          //__SILP__
+        }                                                              //__SILP__
+        return nil;                                                    //__SILP__
+    }                                                                  //__SILP__
+                                                                       //__SILP__
+    public override func decode(data: Data) -> Bool {                  //__SILP__
+        if !super.decode(data) { return false }                        //__SILP__
+                                                                       //__SILP__
+        _value = data.getInt(Vars.Consts.KeyValue)                     //__SILP__
+        return true;                                                   //__SILP__
+    }                                                                  //__SILP__
+}                                                                      //__SILP__
+                                                                       //__SILP__
+//SILP: VAR_CLASS(Long, Int64)
+public class LongVar : BaseAspect, Var {                                //__SILP__
+    public typealias ValueType = Int64                                  //__SILP__
+                                                                        //__SILP__
+    public override var type: String? {                                 //__SILP__
+        return Vars.Consts.TypeLongVar                                  //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public required init(entity: Entity, path: String) {                //__SILP__
+        super.init(entity: entity, path: path)                          //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    private var _value: Int64?                                          //__SILP__
+    public var value: Int64? {                                          //__SILP__
+        return _value                                                   //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public func setValue(newValue: Int64?) -> Bool {                    //__SILP__
+        _value = newValue                                               //__SILP__
+        return true                                                     //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public override func encode() -> Data? {                            //__SILP__
+        if let data = super.encode() {                                  //__SILP__
+            if _value != nil {                                          //__SILP__
+                if data.setLong(Vars.Consts.KeyValue, value: _value!) { //__SILP__
+                    return data                                         //__SILP__
+                }                                                       //__SILP__
+            }                                                           //__SILP__
+        }                                                               //__SILP__
+        return nil;                                                     //__SILP__
+    }                                                                   //__SILP__
+                                                                        //__SILP__
+    public override func decode(data: Data) -> Bool {                   //__SILP__
+        if !super.decode(data) { return false }                         //__SILP__
+                                                                        //__SILP__
+        _value = data.getLong(Vars.Consts.KeyValue)                     //__SILP__
+        return true;                                                    //__SILP__
+    }                                                                   //__SILP__
+}                                                                       //__SILP__
+                                                                        //__SILP__
+//SILP: VAR_CLASS(Float, Float)
+public class FloatVar : BaseAspect, Var {                                //__SILP__
+    public typealias ValueType = Float                                   //__SILP__
+                                                                         //__SILP__
+    public override var type: String? {                                  //__SILP__
+        return Vars.Consts.TypeFloatVar                                  //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public required init(entity: Entity, path: String) {                 //__SILP__
+        super.init(entity: entity, path: path)                           //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    private var _value: Float?                                           //__SILP__
+    public var value: Float? {                                           //__SILP__
+        return _value                                                    //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public func setValue(newValue: Float?) -> Bool {                     //__SILP__
+        _value = newValue                                                //__SILP__
+        return true                                                      //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public override func encode() -> Data? {                             //__SILP__
+        if let data = super.encode() {                                   //__SILP__
+            if _value != nil {                                           //__SILP__
+                if data.setFloat(Vars.Consts.KeyValue, value: _value!) { //__SILP__
+                    return data                                          //__SILP__
+                }                                                        //__SILP__
+            }                                                            //__SILP__
+        }                                                                //__SILP__
+        return nil;                                                      //__SILP__
+    }                                                                    //__SILP__
+                                                                         //__SILP__
+    public override func decode(data: Data) -> Bool {                    //__SILP__
+        if !super.decode(data) { return false }                          //__SILP__
+                                                                         //__SILP__
+        _value = data.getFloat(Vars.Consts.KeyValue)                     //__SILP__
+        return true;                                                     //__SILP__
+    }                                                                    //__SILP__
+}                                                                        //__SILP__
+                                                                         //__SILP__
+//SILP: VAR_CLASS(Double, Double)
+public class DoubleVar : BaseAspect, Var {                                //__SILP__
+    public typealias ValueType = Double                                   //__SILP__
+                                                                          //__SILP__
+    public override var type: String? {                                   //__SILP__
+        return Vars.Consts.TypeDoubleVar                                  //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public required init(entity: Entity, path: String) {                  //__SILP__
+        super.init(entity: entity, path: path)                            //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    private var _value: Double?                                           //__SILP__
+    public var value: Double? {                                           //__SILP__
+        return _value                                                     //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public func setValue(newValue: Double?) -> Bool {                     //__SILP__
+        _value = newValue                                                 //__SILP__
+        return true                                                       //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public override func encode() -> Data? {                              //__SILP__
+        if let data = super.encode() {                                    //__SILP__
+            if _value != nil {                                            //__SILP__
+                if data.setDouble(Vars.Consts.KeyValue, value: _value!) { //__SILP__
+                    return data                                           //__SILP__
+                }                                                         //__SILP__
+            }                                                             //__SILP__
+        }                                                                 //__SILP__
+        return nil;                                                       //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public override func decode(data: Data) -> Bool {                     //__SILP__
+        if !super.decode(data) { return false }                           //__SILP__
+                                                                          //__SILP__
+        _value = data.getDouble(Vars.Consts.KeyValue)                     //__SILP__
+        return true;                                                      //__SILP__
+    }                                                                     //__SILP__
+}                                                                         //__SILP__
+                                                                          //__SILP__
+//SILP: VAR_CLASS(String, String)
+public class StringVar : BaseAspect, Var {                                //__SILP__
+    public typealias ValueType = String                                   //__SILP__
+                                                                          //__SILP__
+    public override var type: String? {                                   //__SILP__
+        return Vars.Consts.TypeStringVar                                  //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public required init(entity: Entity, path: String) {                  //__SILP__
+        super.init(entity: entity, path: path)                            //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    private var _value: String?                                           //__SILP__
+    public var value: String? {                                           //__SILP__
+        return _value                                                     //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public func setValue(newValue: String?) -> Bool {                     //__SILP__
+        _value = newValue                                                 //__SILP__
+        return true                                                       //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public override func encode() -> Data? {                              //__SILP__
+        if let data = super.encode() {                                    //__SILP__
+            if _value != nil {                                            //__SILP__
+                if data.setString(Vars.Consts.KeyValue, value: _value!) { //__SILP__
+                    return data                                           //__SILP__
+                }                                                         //__SILP__
+            }                                                             //__SILP__
+        }                                                                 //__SILP__
+        return nil;                                                       //__SILP__
+    }                                                                     //__SILP__
+                                                                          //__SILP__
+    public override func decode(data: Data) -> Bool {                     //__SILP__
+        if !super.decode(data) { return false }                           //__SILP__
+                                                                          //__SILP__
+        _value = data.getString(Vars.Consts.KeyValue)                     //__SILP__
+        return true;                                                      //__SILP__
+    }                                                                     //__SILP__
+}                                                                         //__SILP__
+                                                                          //__SILP__

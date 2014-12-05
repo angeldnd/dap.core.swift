@@ -44,6 +44,7 @@
 
 /* Begin PBXFileReference section */
 		001256F71A2E04C4006F17F4 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		001915791A3184F90069A7C3 /* silp_swift.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = silp_swift.md; sourceTree = "<group>"; };
 		00A72EE21A21043A00D8B84C /* DapCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DapCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A72EED1A21043A00D8B84C /* DapCoreTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DapCoreTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00A72EF31A21043A00D8B84C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -160,6 +161,7 @@
 		00A72F051A21050600D8B84C /* context */ = {
 			isa = PBXGroup;
 			children = (
+				001915791A3184F90069A7C3 /* silp_swift.md */,
 				00A72F061A21050600D8B84C /* Channel.swift */,
 				00A72F071A21050600D8B84C /* Channels.swift */,
 				00A72F081A21050600D8B84C /* Context.swift */,

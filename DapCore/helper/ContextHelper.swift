@@ -10,19 +10,19 @@ import Foundation
 
 extension Context {
     public func dump() -> Data? {
-        return properties.dump();
+        return properties.encode();
     }
     
     public func load(data: Data) -> Bool {
-        return properties.load(data);
+        return properties.decode(data);
     }
     
-    public func send(path: String, _ data: Data? = nil) -> Bool? {
-        return channels.send(path, data: data)
+    public func fireEvent(channelPath: String, _ evt: Data? = nil) -> Bool? {
+        return channels.fireEvent(channelPath, evt: evt)
     }
 
-    public func handle(path: String, _ data: Data) -> Data? {
-        return handlers.handle(path, data: data)
+    public func handleRequest(path: String, _ req: Data) -> Data? {
+        return handlers.handleRequest(path, req: req)
     }
     
     //SILP: CONTEXT_PROPERTIES_HELPER(Bool, Bool)
