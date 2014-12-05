@@ -13,13 +13,13 @@ public class Handler : Channel {
         super.init(entity: entity, path: path)
     }
     
-    func onHandle(path: String, data: Data) -> Data {
-        return Data()
+    public func doHandle(path: String, data: Data?) -> Data? {
+        return nil
     }
     
     public final func handle(data: Data) -> Data? {
         if send(data) {
-            return onHandle(path, data: data)
+            return doHandle(path, data: data)
         }
         return nil
     }
