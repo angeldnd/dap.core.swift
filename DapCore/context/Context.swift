@@ -33,14 +33,5 @@ public class Context : Entity {
         _properties = add(Consts.PathProperties)
         _channels = add(Consts.PathChannels)
         _handlers = add(Consts.PathHandlers)
-        
-        //For unknown reason, in playground, _properties will be init as EntityAspect, even
-        //though the type is Properties?
-        //TODO: Figure out a better way, either solve this, or have to discard the whole
-        //add<T>() way
-        //_properties = Properties(entity: self, path: Consts.PathProperties)
-        //addAspect(properties)
-        
-        println("Properties -> \(properties), type = \(properties.type)")
     }
 }
