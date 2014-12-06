@@ -53,6 +53,32 @@ public protocol ${type}ValueWatcher : class {
     func onChanged(propertyPath: String, lastValue: ${swift_type}?, value: ${swift_type}?) -> Void
 }
 
+public final class Block${type}ValueChecker : ${type}ValueChecker {
+    public typealias CheckerBlock = (String, ${swift_type}?, ${swift_type}?) -> Bool
+    private let block: CheckerBlock
+
+    public init(block: CheckerBlock) {
+        self.block = block
+    }
+
+    public func isValid(propertyPath: String, value: ${swift_type}?, newValue: ${swift_type}?) -> Bool {
+        return block(propertyPath, value, newValue)
+    }
+}
+
+public final class Block${type}ValueWatcher : ${type}ValueWatcher {
+    public typealias WatcherBlock = (String, ${swift_type}?, ${swift_type}?) -> Void
+    private let block: WatcherBlock
+
+    public init(block: WatcherBlock) {
+        self.block = block
+    }
+
+    public func onChanged(propertyPath: String, lastValue: ${swift_type}?, value: ${swift_type}?) -> Void {
+        block(propertyPath, lastValue, value)
+    }
+}
+
 public class ${type}Property : ${type}Var, Property {
     public typealias ValueChecker = ${type}ValueChecker
     public typealias ValueWatcher = ${type}ValueWatcher
