@@ -10,11 +10,15 @@ import Foundation
 
 extension Context {
     public func dump() -> Data? {
-        return properties.encode();
+        if let data = properties.encode() {
+            return data.getData(Entity.Consts.KeyAspects)
+        }
+        return nil
     }
     
     public func load(data: Data) -> Bool {
-        return properties.decode(data);
+        var (succeedCount, failedCount) = properties.decodeAspects(data)
+        return succeedCount > 0
     }
     
     public func fireEvent(channelPath: String, _ evt: Data? = nil) -> Bool? {

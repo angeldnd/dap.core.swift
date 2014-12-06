@@ -58,19 +58,5 @@ public class Item : Context, Aspect {
             return path == value
         }
         return false
-    }
-    
-    public override func encodeAspect(aspect: Aspect) -> Data? {
-        if let item = aspect as? Item {
-            return item.encode()
-        }
-        return super.encodeAspect(aspect)
-    }
-    
-    public override func decodeAspect(aspect: Aspect, data: Data) -> Bool {
-        if let item = aspect as? Item {
-            return item.decode(data)
-        }
-        return super.decodeAspect(aspect, data: data)
-    }
+    }    
 }

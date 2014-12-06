@@ -13,6 +13,8 @@ public protocol Aspect : class {
     var path: String { get }
     
     init(entity: Entity, path: String)
+    func encode() -> Data?
+    func decode(data: Data) -> Bool
 }
 
 public class BaseAspect : DapObject, Aspect {

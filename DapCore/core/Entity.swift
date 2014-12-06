@@ -23,8 +23,10 @@ public class Entity : DapObject {
         if let data = super.encode() {
             var aspectsData = Data()
             for (key, aspect) in _aspects {
-                if let aspectData = encodeAspect(aspect) {
+                if let aspectData = aspect.encode() {
                     aspectsData.setData(key, value: aspectData)
+                } else {
+                    //TODO error log
                 }
             }
             if data.setData(DapObject.Consts.KeyAspects, value: aspectsData) {
@@ -38,55 +40,40 @@ public class Entity : DapObject {
         if !super.decode(data) { return false }
         
         if let aspectsData = data.getData(DapObject.Consts.KeyAspects) {
-            for path in aspectsData.getKeys() {
-                if let aspectData = aspectsData.getData(path) {
-                    if let aspect = getAspect(path) {
-                        decodeAspect(aspect, data: aspectData)
-                    } else if let aspect = factoryAspect(self, path: path, data: aspectData) {
-                        if decodeAspect(aspect, data: aspectData) {
-                            _aspects[aspect.path] = aspect
-                            for watcher in _watchers {
-                                watcher.onEntityAspectAdded(self, aspect: aspect)
-                            }
-                        }
-                    }
-                }
-            }
-            return true
+            var (succeedCount, failedCount) = decodeAspects(aspectsData)
+            return succeedCount > 0
         }
         return false
     }
     
-    public func encodeAspect(aspect: Aspect) -> Data? {
-        /*
-         * if use value.encode(aspectData) here, the compiler will
-         * crash with segment fault, probably a swift bug.
-         */
-        switch aspect {
-        case let a as BaseAspect:
-            return a.encode()
-        case let a as EntityAspect:
-            return a.encode()
-        default:
-            return nil
+    public func decodeAspects(aspectsData: Data) -> (Int, Int) {
+        var succeedCount = 0
+        var failedCount = 0
+        for path in aspectsData.getKeys() {
+            if let aspectData = aspectsData.getData(path) {
+                if let aspect = getAspect(path) {
+                    if aspect.decode(aspectData) {
+                        succeedCount++
+                    } else {
+                        failedCount++
+                        //TODO: error log
+                    }
+                } else if let aspect = factoryAspect(self, path: path, data: aspectData) {
+                    if aspect.decode(aspectData) {
+                        succeedCount++
+                        _aspects[aspect.path] = aspect
+                        for watcher in _watchers {
+                            watcher.onEntityAspectAdded(self, aspect: aspect)
+                        }
+                    } else {
+                        failedCount++
+                        //TODO: error log
+                    }
+                }
+            }
         }
+        return (succeedCount, failedCount)
     }
-    
-    public func decodeAspect(aspect: Aspect, data: Data) -> Bool {
-        /*
-         * if use value.decode(aspectData) here, the compiler will
-         * crash with segment fault, probably a swift bug.
-         */
-        switch aspect {
-        case let a as BaseAspect:
-            return a.decode(data)
-        case let a as EntityAspect:
-            return a.decode(data)
-        default:
-            return false
-        }
-    }
-    
     
     public func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
         return nil

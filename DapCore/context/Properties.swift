@@ -12,12 +12,12 @@ public class Properties : EntityAspect {
     public struct Consts {
         public static let TypeProperties = "Properties"
         
-        public static let TypeBoolProperty = "BoolProperty"
-        public static let TypeIntProperty = "IntProperty"
-        public static let TypeLongProperty = "LongProperty"
-        public static let TypeFloatProperty = "FloatProperty"
-        public static let TypeDoubleProperty = "DoubleProperty"
-        public static let TypeStringProperty = "StringProperty"
+        public static let TypeBoolProperty = "Bool"
+        public static let TypeIntProperty = "Int"
+        public static let TypeLongProperty = "Long"
+        public static let TypeFloatProperty = "Float"
+        public static let TypeDoubleProperty = "Double"
+        public static let TypeStringProperty = "String"
         
     }
 
