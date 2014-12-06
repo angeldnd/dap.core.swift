@@ -42,9 +42,12 @@ public class Entity : DapObject {
                 if let aspectData = aspectsData.getData(path) {
                     if let aspect = getAspect(path) {
                         decodeAspect(aspect, data: aspectData)
-                    } else if let aspect = factoryAspect(self, path: path, data: aspectData){
+                    } else if let aspect = factoryAspect(self, path: path, data: aspectData) {
                         if decodeAspect(aspect, data: aspectData) {
-                            let a = addAspect(aspect)
+                            _aspects[aspect.path] = aspect
+                            for watcher in _watchers {
+                                watcher.onEntityAspectAdded(self, aspect: aspect)
+                            }
                         }
                     }
                 }
@@ -142,51 +145,25 @@ public class Entity : DapObject {
         return _aspects[path]
     }
     
-    public final func addAspect(aspect: Aspect) -> Bool {
-        if aspect.entity === self && !has(aspect.path) {
+    public final func add<T: Aspect>(path: String) -> T? {
+        if !has(path) {
+            let aspect = T(entity: self, path: path)
             _aspects[aspect.path] = aspect
             for watcher in _watchers {
                 watcher.onEntityAspectAdded(self, aspect: aspect)
             }
-            return true
-        }
-        return false
-    }
-    
-    public final func removeAspect(aspect: Aspect) -> Bool {
-        if aspect === getAspect(aspect.path) {
-            _aspects[aspect.path] = nil
-            for watcher in _watchers {
-                watcher.onEntityAspectRemoved(self, aspect: aspect)
-            }
-            return true
-        }
-        return false
-    }
-    
-    /*
-     * If the type here is a generic type, e.g. Property<Bool>, need to
-     * use the addAspect() method
-     * Due to the way swift handle generic, this is not really useful.
-     * you can't call it as add<BoolProperty>(path), T is getting wrong
-     * type even do it like "let property: BoolProperty? = add(path)
-     * the simplest way now is to init aspects in addXXX() methods
-     */
-    public final func add<T: Aspect>(path: String) -> T? {
-        if !has(path) {
-            let aspect = T(entity: self, path: path)
-            if addAspect(aspect) {
-                return aspect
-            }
+            return aspect
         }
         return nil
     }
 
     public func remove<T: Aspect>(path: String) -> T? {
         if let aspect: T = get(path) {
-            if removeAspect(aspect) {
-                return aspect
+            _aspects[aspect.path] = nil
+            for watcher in _watchers {
+                watcher.onEntityAspectRemoved(self, aspect: aspect)
             }
+            return aspect
         }
         return nil
     }

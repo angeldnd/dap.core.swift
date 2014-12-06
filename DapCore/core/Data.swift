@@ -130,6 +130,7 @@ public protocol DataChecker : class {
     public func setNumber(key: String, value: NSNumber) -> Bool {            //__SILP__
         if _data[key] == nil {                                               //__SILP__
             _data[key] = value                                               //__SILP__
+            return true                                                      //__SILP__
         }                                                                    //__SILP__
         return false                                                         //__SILP__
     }                                                                        //__SILP__
@@ -159,6 +160,7 @@ public protocol DataChecker : class {
     public func setBool(key: String, value: Bool) -> Bool {           //__SILP__
         if _data[key] == nil {                                        //__SILP__
             _data[key] = value                                        //__SILP__
+            return true                                               //__SILP__
         }                                                             //__SILP__
         return false                                                  //__SILP__
     }                                                                 //__SILP__
@@ -200,6 +202,7 @@ public protocol DataChecker : class {
     public func setInt(key: String, value: Int32) -> Bool {           //__SILP__
         if _data[key] == nil {                                        //__SILP__
             _data[key] = value                                        //__SILP__
+            return true                                               //__SILP__
         }                                                             //__SILP__
         return false                                                  //__SILP__
     }                                                                 //__SILP__
@@ -241,6 +244,7 @@ public protocol DataChecker : class {
     public func setLong(key: String, value: Int64) -> Bool {          //__SILP__
         if _data[key] == nil {                                        //__SILP__
             _data[key] = value                                        //__SILP__
+            return true                                               //__SILP__
         }                                                             //__SILP__
         return false                                                  //__SILP__
     }                                                                 //__SILP__
@@ -282,6 +286,7 @@ public protocol DataChecker : class {
     public func setFloat(key: String, value: Float) -> Bool {         //__SILP__
         if _data[key] == nil {                                        //__SILP__
             _data[key] = value                                        //__SILP__
+            return true                                               //__SILP__
         }                                                             //__SILP__
         return false                                                  //__SILP__
     }                                                                 //__SILP__
@@ -323,6 +328,7 @@ public protocol DataChecker : class {
     public func setDouble(key: String, value: Double) -> Bool {          //__SILP__
         if _data[key] == nil {                                           //__SILP__
             _data[key] = value                                           //__SILP__
+            return true                                                  //__SILP__
         }                                                                //__SILP__
         return false                                                     //__SILP__
     }                                                                    //__SILP__
@@ -352,6 +358,7 @@ public protocol DataChecker : class {
     public func setString(key: String, value: String) -> Bool {          //__SILP__
         if _data[key] == nil {                                           //__SILP__
             _data[key] = value                                           //__SILP__
+            return true                                                  //__SILP__
         }                                                                //__SILP__
         return false                                                     //__SILP__
     }                                                                    //__SILP__
@@ -381,6 +388,7 @@ public protocol DataChecker : class {
     public func setData(key: String, value: Data) -> Bool {           //__SILP__
         if _data[key] == nil {                                        //__SILP__
             _data[key] = value                                        //__SILP__
+            return true                                               //__SILP__
         }                                                             //__SILP__
         return false                                                  //__SILP__
     }                                                                 //__SILP__

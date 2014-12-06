@@ -35,8 +35,11 @@ public class Vars : EntityAspect {
     }
     
     public final func addAnyVar<T>(varPath: String, value: T) -> AnyVar<T>? {
+        if let v: AnyVar<T> = add(varPath) {
+        /*
         let v = AnyVar<T>(entity: self, path: varPath)
         if addAspect(v) {
+        */
             v.setValue(value)
             return v
         }

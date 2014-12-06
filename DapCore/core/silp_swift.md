@@ -24,6 +24,7 @@ public func get${type}(key: String, defaultValue: ${swift_type}) -> ${swift_type
 public func set${type}(key: String, value: ${swift_type}) -> Bool {
     if _data[key] == nil {
         _data[key] = value
+        return true
     }
     return false
 }
@@ -68,6 +69,7 @@ public func get${type}(key: String, defaultValue: ${swift_type}) -> ${swift_type
 public func set${type}(key: String, value: ${swift_type}) -> Bool {
     if _data[key] == nil {
         _data[key] = value
+        return true
     }
     return false
 }

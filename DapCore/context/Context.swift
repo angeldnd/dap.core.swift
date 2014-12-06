@@ -30,7 +30,7 @@ public class Context : Entity {
     
     public override init() {
         super.init()
-        //_properties = add(Consts.PathProperties)
+        _properties = add(Consts.PathProperties)
         _channels = add(Consts.PathChannels)
         _handlers = add(Consts.PathHandlers)
         
@@ -38,9 +38,9 @@ public class Context : Entity {
         //though the type is Properties?
         //TODO: Figure out a better way, either solve this, or have to discard the whole
         //add<T>() way
-        _properties = Properties(entity: self, path: Consts.PathProperties)
-        addAspect(properties)
+        //_properties = Properties(entity: self, path: Consts.PathProperties)
+        //addAspect(properties)
         
-        println("Properties -> \(properties)")
+        println("Properties -> \(properties), type = \(properties.type)")
     }
 }

@@ -17,7 +17,7 @@ public protocol Aspect : class {
 
 public class BaseAspect : DapObject, Aspect {
     public unowned let entity: Entity
-    public let path: String
+    public var path: String
     
     public required init(entity: Entity, path: String) {
         self.entity = entity
