@@ -38,25 +38,7 @@ public class Item : Context, Aspect {
         }
     }
     
-    public override func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
-        return self.registry?.factoryAspect(entity, path: path, data: data)
+    public override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
+        return self.registry?.factoryAspect(entity, path: path, type: type)
     }
-    
-    public override func encode() -> Data? {
-        if let data = super.encode() {
-            if data.setString(DapObject.Consts.KeyPath, value: path) {
-                return data
-            }
-        }
-        return nil
-    }
-    
-    public override func decode(data: Data) -> Bool {
-        if !super.decode(data) { return false }
-        
-        if let value = data.getString(DapObject.Consts.KeyPath) {
-            return path == value
-        }
-        return false
-    }    
 }

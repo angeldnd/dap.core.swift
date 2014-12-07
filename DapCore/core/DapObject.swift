@@ -11,8 +11,6 @@ import Foundation
 public class DapObject {
     public struct Consts {
         static let KeyType = "type"
-        static let KeyPath = "path"
-        static let KeyAspects = "aspects"
     }
        
     public var type: String? { return nil }

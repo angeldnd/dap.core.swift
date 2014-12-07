@@ -67,11 +67,16 @@ public final class Factory: Entity {
         return aspects.addAnyVar(type, value: factory) != nil
     }
     
-    public final override func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
-        if let type = data.getString(DapObject.Consts.KeyType) {
-            if let factory: AspectFactory = aspects.getAnyValue(type) {
-                return factory(entity, path)
-            }
+    public final func factoryEntity(type: String) -> Entity? {
+        if let factory: EntityFactory = entities.getAnyValue(type) {
+            return factory()
+        }
+        return nil
+    }
+    
+    public final override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
+        if let factory: AspectFactory = aspects.getAnyValue(type) {
+            return factory(entity, path)
         }
         return nil
     }

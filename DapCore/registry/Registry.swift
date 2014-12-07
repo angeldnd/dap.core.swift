@@ -32,7 +32,7 @@ public final class Registry : Entity {
         self.init(factory: Factory.NewBuiltinFactory())
     }
     
-    public override func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
-        return factory.factoryAspect(entity, path: path, data: data);
+    public override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
+        return factory.factoryAspect(entity, path: path, type: type);
     }
 }

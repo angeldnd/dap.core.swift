@@ -14,6 +14,10 @@ public protocol EntityWatcher : class {
 }
 
 public class Entity : DapObject {
+    public struct Consts {
+        static let KeyAspects = "aspects"
+    }
+       
     public var separator: String { return "." }
    
     private var _aspects = [String: Aspect]()
@@ -25,11 +29,9 @@ public class Entity : DapObject {
             for (key, aspect) in _aspects {
                 if let aspectData = aspect.encode() {
                     aspectsData.setData(key, value: aspectData)
-                } else {
-                    //TODO error log
                 }
             }
-            if data.setData(DapObject.Consts.KeyAspects, value: aspectsData) {
+            if data.setData(Consts.KeyAspects, value: aspectsData) {
                 return data
             }
         }
@@ -39,7 +41,7 @@ public class Entity : DapObject {
     public override func decode(data: Data) -> Bool {
         if !super.decode(data) { return false }
         
-        if let aspectsData = data.getData(DapObject.Consts.KeyAspects) {
+        if let aspectsData = data.getData(Consts.KeyAspects) {
             var (succeedCount, failedCount) = decodeAspects(aspectsData)
             return succeedCount > 0
         }
@@ -50,32 +52,34 @@ public class Entity : DapObject {
         var succeedCount = 0
         var failedCount = 0
         for path in aspectsData.getKeys() {
+            var succeed = false
             if let aspectData = aspectsData.getData(path) {
                 if let aspect = getAspect(path) {
                     if aspect.decode(aspectData) {
-                        succeedCount++
-                    } else {
-                        failedCount++
-                        //TODO: error log
+                        succeed = true
                     }
-                } else if let aspect = factoryAspect(self, path: path, data: aspectData) {
-                    if aspect.decode(aspectData) {
-                        succeedCount++
-                        _aspects[aspect.path] = aspect
-                        for watcher in _watchers {
-                            watcher.onEntityAspectAdded(self, aspect: aspect)
+                } else if let type = aspectsData.getString(DapObject.Consts.KeyType) {
+                    if let aspect = factoryAspect(self, path: path, type: type) {
+                        if aspect.decode(aspectData) {
+                            succeed = true
+                            _aspects[aspect.path] = aspect
+                            for watcher in _watchers {
+                                watcher.onEntityAspectAdded(self, aspect: aspect)
+                            }
                         }
-                    } else {
-                        failedCount++
-                        //TODO: error log
                     }
                 }
+            }
+            if succeed {
+                succeedCount++
+            } else {
+                failedCount++
             }
         }
         return (succeedCount, failedCount)
     }
     
-    public func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
+    public func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
         return nil
     }
     

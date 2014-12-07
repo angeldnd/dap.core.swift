@@ -36,7 +36,7 @@ public class EntityAspect : Entity, Aspect {
         self.path = path
     }
     
-    public override func factoryAspect(entity: Entity, path: String, data: Data) -> Aspect? {
-        return self.entity.factoryAspect(entity, path: path, data: data)
+    public override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
+        return self.entity.factoryAspect(entity, path: path, type: type)
     }
 }
