@@ -32,6 +32,18 @@ public final class Registry : Entity {
         self.init(factory: Factory.NewBuiltinFactory())
     }
     
+    public func addItem(path: String, type: String) -> Item? {
+        if !has(path) {
+            if let aspect = factory.factoryAspect(self, path: path, type: type) {
+                if let item = aspect as? Item {
+                    setAspect(item)
+                    return item
+                }
+            }
+        }
+        return nil
+    }
+    
     public override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
         return factory.factoryAspect(entity, path: path, type: type);
     }

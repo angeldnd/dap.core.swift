@@ -10,7 +10,7 @@ import Foundation
 
 public class DapObject {
     public struct Consts {
-        static let KeyType = "type"
+        public static let KeyType = "type"
     }
        
     public var type: String? { return nil }

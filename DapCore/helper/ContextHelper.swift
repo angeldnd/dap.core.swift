@@ -18,7 +18,7 @@ extension Context {
     
     public func load(data: Data) -> Bool {
         var (succeedCount, failedCount) = properties.decodeAspects(data)
-        return succeedCount > 0
+        return succeedCount > 0 || failedCount <= 0
     }
     
     public func fireEvent(channelPath: String, _ evt: Data? = nil) -> Bool? {

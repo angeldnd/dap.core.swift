@@ -15,7 +15,7 @@ public protocol EntityWatcher : class {
 
 public class Entity : DapObject {
     public struct Consts {
-        static let KeyAspects = "aspects"
+        public static let KeyAspects = "aspects"
     }
        
     public var separator: String { return "." }
@@ -61,11 +61,8 @@ public class Entity : DapObject {
                 } else if let type = aspectsData.getString(DapObject.Consts.KeyType) {
                     if let aspect = factoryAspect(self, path: path, type: type) {
                         if aspect.decode(aspectData) {
+                            setAspect(aspect)
                             succeed = true
-                            _aspects[aspect.path] = aspect
-                            for watcher in _watchers {
-                                watcher.onEntityAspectAdded(self, aspect: aspect)
-                            }
                         }
                     }
                 }
@@ -136,13 +133,26 @@ public class Entity : DapObject {
         return _aspects[path]
     }
     
+    internal final func setAspect(aspect: Aspect) {
+        if let oldAspect = _aspects[aspect.path] {
+            for watcher in _watchers {
+                watcher.onEntityAspectRemoved(self, aspect: aspect)
+            }
+        }
+        /* Note: checking aspect like following will cause the PlayGround to
+         * crash with bad access
+         aspect.entity === self
+         */
+        _aspects[aspect.path] = aspect
+        for watcher in _watchers {
+            watcher.onEntityAspectAdded(self, aspect: aspect)
+        }
+    }
+    
     public final func add<T: Aspect>(path: String) -> T? {
         if !has(path) {
             let aspect = T(entity: self, path: path)
-            _aspects[aspect.path] = aspect
-            for watcher in _watchers {
-                watcher.onEntityAspectAdded(self, aspect: aspect)
-            }
+            setAspect(aspect)
             return aspect
         }
         return nil
