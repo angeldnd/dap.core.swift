@@ -10,7 +10,7 @@ import Foundation
 
 public class Item : Context, Aspect {
     public struct Consts {
-        static let TypeItem = "Item"
+        public static let TypeItem = "Item"
     }
     public override var type: String? { return Item.Consts.TypeItem }
     
