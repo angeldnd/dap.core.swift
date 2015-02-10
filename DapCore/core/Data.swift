@@ -66,6 +66,10 @@ public protocol DataChecker : class {
     public init() {
     }
     
+    public func getSize() -> Int32 {
+        return (Int32)(_data.count);
+    }
+    
     public func getKeys() -> [String] {
         var result = [String]()
         for key in _data.keys {
@@ -91,6 +95,8 @@ public protocol DataChecker : class {
                 return DataType.STRING
             case is Data:
                 return DataType.DATA
+            case is NSNumber:
+                return DataType.NUMBER
             default:
                 return nil
             }
