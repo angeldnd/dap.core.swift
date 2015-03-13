@@ -60,9 +60,10 @@ public class Vars : EntityAspect {
         return nil
     }
 
-    public final func setAnyValue<T>(varPath: String, value: T?) {
+    public final func setAnyValue<T>(varPath: String, value: T?) -> Bool? {
         if let v: AnyVar<T> = get(varPath) {
-            v.setValue(value)
+            return v.setValue(value)
         }
+        return nil
     }
 }
