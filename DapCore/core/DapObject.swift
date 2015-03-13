@@ -12,9 +12,9 @@ public class DapObject {
     public struct Consts {
         public static let KeyType = "type"
     }
-       
+
     public var type: String? { return nil }
-    
+
     public func encode() -> Data? {
         if let type = self.type {
             var data = Data()
@@ -25,7 +25,7 @@ public class DapObject {
         println("Not encodable: \(self)")
         return nil
     }
-    
+
     public func decode(data: Data) -> Bool {
         if let type = data.getString(DapObject.Consts.KeyType) {
             if type == self.type {

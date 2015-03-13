@@ -13,18 +13,18 @@ public class Item : Context, Aspect {
         public static let TypeItem = "Item"
     }
     public override var type: String? { return Item.Consts.TypeItem }
-    
+
     public let entity: Entity
     public let path: String
     public let registry: Registry?
-    
+
     public required init(entity: Entity, path: String) {
         self.entity = entity
         self.path = path
         super.init()
         self.registry = findRegistry(entity)
     }
-    
+
     private func findRegistry(entity: Entity) -> Registry? {
         switch entity {
         case let register as Registry:
@@ -37,7 +37,7 @@ public class Item : Context, Aspect {
             return nil
         }
     }
-    
+
     public override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
         return self.registry?.factoryAspect(entity, path: path, type: type)
     }

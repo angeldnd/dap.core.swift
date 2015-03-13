@@ -13,25 +13,25 @@ public final class Registry : Entity {
         public static let Separator = "/"
     }
     public override var separator: String { return Registry.Consts.Separator }
-    
+
     public final class var Global: Registry {
         struct Static {
             static let Instance: Registry = Registry()
         }
         return Static.Instance
     }
-    
+
     public let factory: Factory
-    
+
     public required init(factory: Factory) {
         self.factory = factory;
         super.init()
     }
-    
+
     public convenience override init() {
         self.init(factory: Factory.NewBuiltinFactory())
     }
-    
+
     public func addItem(path: String, type: String) -> Item? {
         if !has(path) {
             if let aspect = factory.factoryAspect(self, path: path, type: type) {
@@ -43,7 +43,7 @@ public final class Registry : Entity {
         }
         return nil
     }
-    
+
     public override func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
         return factory.factoryAspect(entity, path: path, type: type);
     }

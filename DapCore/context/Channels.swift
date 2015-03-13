@@ -14,12 +14,12 @@ public class Channels : EntityAspect {
     }
 
     public override var separator: String { return Channels.Consts.Separator }
-    
+
     public func addChannel(channelPath: String) -> Channel? {
         let channel: Channel? = add(channelPath)
         return channel
     }
-    
+
     //SILP: ADD_REMOVE_HELPER(EventChecker, channelPath, channel, Channel, EventChecker, checker, DataChecker)
     public func addEventChecker(channelPath: String, checker: DataChecker) -> Bool {    //__SILP__
         if let channel: Channel = get(channelPath) {                                    //__SILP__
@@ -34,7 +34,7 @@ public class Channels : EntityAspect {
         }                                                                               //__SILP__
         return false                                                                    //__SILP__
     }                                                                                   //__SILP__
-    
+
     //SILP: ADD_REMOVE_HELPER(EventListener, channelPath, channel, Channel, EventListener, listener, EventListener)
     public func addEventListener(channelPath: String, listener: EventListener) -> Bool {    //__SILP__
         if let channel: Channel = get(channelPath) {                                        //__SILP__
@@ -49,7 +49,7 @@ public class Channels : EntityAspect {
         }                                                                                   //__SILP__
         return false                                                                        //__SILP__
     }                                                                                       //__SILP__
-    
+
     public func fireEvent(channelPath: String, evt: Data? = nil) -> Bool? {
         if let channel: Channel = get(channelPath) {
             return channel.fireEvent(evt)

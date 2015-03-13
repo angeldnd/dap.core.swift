@@ -17,12 +17,12 @@ public class Entity : DapObject {
     public struct Consts {
         public static let KeyAspects = "aspects"
     }
-       
+
     public var separator: String { return "." }
-   
+
     private var _aspects = [String: Aspect]()
     private var _watchers = [EntityWatcher]()
-    
+
     public override func encode() -> Data? {
         if let data = super.encode() {
             var aspectsData = Data()
@@ -37,17 +37,17 @@ public class Entity : DapObject {
         }
         return nil
     }
-    
+
     public override func decode(data: Data) -> Bool {
         if !super.decode(data) { return false }
-        
+
         if let aspectsData = data.getData(Consts.KeyAspects) {
             var (succeedCount, failedCount) = decodeAspects(aspectsData)
             return succeedCount > 0
         }
         return false
     }
-    
+
     public func decodeAspects(aspectsData: Data) -> (Int, Int) {
         var succeedCount = 0
         var failedCount = 0
@@ -75,11 +75,11 @@ public class Entity : DapObject {
         }
         return (succeedCount, failedCount)
     }
-    
+
     public func factoryAspect(entity: Entity, path: String, type: String) -> Aspect? {
         return nil
     }
-    
+
     private func getIndexOfWatcher(watcher: EntityWatcher) -> Int? {
         for (i, obj) in enumerate(_watchers) {
             if obj === watcher {
@@ -88,7 +88,7 @@ public class Entity : DapObject {
         }
         return nil
     }
-    
+
     public final func addWatcher(watcher: EntityWatcher) -> Bool {
         if getIndexOfWatcher(watcher) == nil {
             _watchers.append(watcher)
@@ -96,7 +96,7 @@ public class Entity : DapObject {
         }
         return false
     }
-    
+
     public final func removeWatcher(watcher: EntityWatcher) -> Bool {
         if let index = getIndexOfWatcher(watcher) {
             _watchers.removeAtIndex(index)
@@ -104,15 +104,15 @@ public class Entity : DapObject {
         }
         return false
     }
-    
+
     public final func has(path: String) -> Bool {
         return _aspects[path] != nil
     }
-   
+
     public final func get<T: Aspect>(path: String) -> T? {
         return _aspects[path]? as? T
     }
-    
+
     public final func filter<T: Aspect>(pattern: String) -> [T] {
         var result = [T]()
         var matcher = PatternMatcher(separator:separator, pattern:pattern)
@@ -123,16 +123,16 @@ public class Entity : DapObject {
         }
         return result
     }
-    
+
     public final func all<T: Aspect>(pattern: String) -> [T] {
         let aspects:[T] = filter(PatternMatcher.Consts.WildcastSegments)
         return aspects
     }
-    
+
     public final func getAspect(path: String) -> Aspect? {
         return _aspects[path]
     }
-    
+
     internal final func setAspect(aspect: Aspect) {
         if let oldAspect = _aspects[aspect.path] {
             for watcher in _watchers {
@@ -148,7 +148,7 @@ public class Entity : DapObject {
             watcher.onEntityAspectAdded(self, aspect: aspect)
         }
     }
-    
+
     public final func add<T: Aspect>(path: String) -> T? {
         if !has(path) {
             let aspect = T(entity: self, path: path)

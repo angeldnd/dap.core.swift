@@ -11,18 +11,18 @@ import Foundation
 public class Properties : EntityAspect {
     public struct Consts {
         public static let TypeProperties = "Properties"
-        
+
         public static let TypeBoolProperty = "Bool"
         public static let TypeIntProperty = "Int"
         public static let TypeLongProperty = "Long"
         public static let TypeFloatProperty = "Float"
         public static let TypeDoubleProperty = "Double"
         public static let TypeStringProperty = "String"
-        
+
     }
 
     public override var type: String? { return Consts.TypeProperties }
-    
+
     public final func addProperty<T: Property>(path: String, value: T.ValueType?) -> T? {
         if let property: T = add(path) {
             property.setValue(value)
@@ -30,7 +30,7 @@ public class Properties : EntityAspect {
         }
         return nil
     }
-    
+
     //SILP: ADD_REMOVE_HELPER(BoolValueChecker, propertyPath, property, BoolProperty, ValueChecker, checker, BoolProperty.ValueChecker)
     public func addBoolValueChecker(propertyPath: String, checker: BoolProperty.ValueChecker) -> Bool {    //__SILP__
         if let property: BoolProperty = get(propertyPath) {                                                //__SILP__

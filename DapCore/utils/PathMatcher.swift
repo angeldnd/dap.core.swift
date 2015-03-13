@@ -13,17 +13,17 @@ public class PatternMatcher {
         public static let WildcastSegment = "*"
         public static let WildcastSegments = "**"
     }
-    
+
     public let separator: String
     public let pattern: String
     private let segments: [String]
-    
+
     public init(separator: String, pattern: String) {
         self.separator = separator
         self.pattern = pattern
         self.segments = pattern.componentsSeparatedByString(separator)
     }
-    
+
     public func isMatched(path: String) -> Bool {
         let pathSegments = path.componentsSeparatedByString(separator)
         //TODO:Matching

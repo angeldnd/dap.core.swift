@@ -11,10 +11,10 @@ import Foundation
 public protocol Property: Var {
     typealias ValueChecker
     typealias ValueWatcher
-   
+
     func addValueChecker(checker: ValueChecker) -> Bool
     func removeValueChecker(checker: ValueChecker) -> Bool
-    
+
     func addValueWatcher(watcher: ValueWatcher) -> Bool
     func removeValueWatcher(watcher: ValueWatcher) -> Bool
 }

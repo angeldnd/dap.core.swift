@@ -15,12 +15,12 @@ extension Context {
         }
         return nil
     }
-    
+
     public func load(data: Data) -> Bool {
         var (succeedCount, failedCount) = properties.decodeAspects(data)
         return succeedCount > 0 || failedCount <= 0
     }
-    
+
     public func fireEvent(channelPath: String, _ evt: Data? = nil) -> Bool? {
         return channels.fireEvent(channelPath, evt: evt)
     }
@@ -28,7 +28,7 @@ extension Context {
     public func handleRequest(path: String, _ req: Data) -> Data? {
         return handlers.handleRequest(path, req: req)
     }
-    
+
     //SILP: CONTEXT_PROPERTIES_HELPER(Bool, Bool)
     public func addBool(path: String, _ value: Bool) -> BoolProperty? { //__SILP__
         return properties.addBool(path, value)                          //__SILP__

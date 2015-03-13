@@ -14,12 +14,12 @@ public class Handlers : EntityAspect {
     }
 
     public override var separator: String { return Handlers.Consts.Separator }
-    
+
     public func addHandler(handlerPath: String) -> Handler? {
         let handler: Handler? = add(handlerPath)
         return handler
     }
-    
+
     //SILP: ADD_REMOVE_HELPER(RequestChecker, handlerPath, handler, Handler, RequestChecker, checker, DataChecker)
     public func addRequestChecker(handlerPath: String, checker: DataChecker) -> Bool {    //__SILP__
         if let handler: Handler = get(handlerPath) {                                      //__SILP__
@@ -34,7 +34,7 @@ public class Handlers : EntityAspect {
         }                                                                                 //__SILP__
         return false                                                                      //__SILP__
     }                                                                                     //__SILP__
-    
+
     //SILP: ADD_REMOVE_HELPER(RequestListener, handlerPath, handler, Handler, RequestListener, listener, RequestListener)
     public func addRequestListener(handlerPath: String, listener: RequestListener) -> Bool {    //__SILP__
         if let handler: Handler = get(handlerPath) {                                            //__SILP__
@@ -49,7 +49,7 @@ public class Handlers : EntityAspect {
         }                                                                                       //__SILP__
         return false                                                                            //__SILP__
     }                                                                                           //__SILP__
-    
+
     //SILP: ADD_REMOVE_HELPER(ResponseListener, handlerPath, handler, Handler, ResponseListener, listener, ResponseListener)
     public func addResponseListener(handlerPath: String, listener: ResponseListener) -> Bool {    //__SILP__
         if let handler: Handler = get(handlerPath) {                                              //__SILP__
@@ -64,7 +64,7 @@ public class Handlers : EntityAspect {
         }                                                                                         //__SILP__
         return false                                                                              //__SILP__
     }                                                                                             //__SILP__
-    
+
     public func handleRequest(path: String, req: Data?) -> Data? {
         if let handler: Handler = get(path) {
             return handler.handleRequest(req)

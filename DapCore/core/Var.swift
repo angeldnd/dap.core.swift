@@ -16,16 +16,16 @@ public protocol Var : Aspect {
 
 public class AnyVar<T> : BaseAspect {
     public typealias ValueType = T
-    
+
     public required init(entity: Entity, path: String) {
         super.init(entity: entity, path: path)
     }
-    
+
     private var _value: T?
     public var value: T? {
         return _value
     }
-    
+
     public func setValue(newValue: T?) -> Bool {
         _value = newValue
         return true

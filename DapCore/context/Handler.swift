@@ -22,7 +22,7 @@ public protocol RequestHandler : class {
 
 public final class Handler : BaseAspect {
     private var _handler: RequestHandler?
-    
+
     public required init(entity: Entity, path: String) {
         super.init(entity: entity, path: path)
     }
@@ -34,11 +34,11 @@ public final class Handler : BaseAspect {
         }
         return false
     }
-    
+
     private var _requestCheckers = [DataChecker]()
     private var _requestListeners = [RequestListener]()
     private var _responseListeners = [ResponseListener]()
-    
+
     //SILP: DECLARE_LIST(RequestChecker, checker, DataChecker, _requestCheckers)
     private func getIndexOfRequestChecker(checker: DataChecker) -> Int? {  //__SILP__
         for (i, obj) in enumerate(_requestCheckers) {                      //__SILP__
@@ -64,7 +64,7 @@ public final class Handler : BaseAspect {
         }                                                                  //__SILP__
         return false                                                       //__SILP__
     }                                                                      //__SILP__
-    
+
     //SILP: DECLARE_LIST(RequestListener, listener, RequestListener, _requestListeners)
     private func getIndexOfRequestListener(listener: RequestListener) -> Int? {  //__SILP__
         for (i, obj) in enumerate(_requestListeners) {                           //__SILP__
@@ -90,7 +90,7 @@ public final class Handler : BaseAspect {
         }                                                                        //__SILP__
         return false                                                             //__SILP__
     }                                                                            //__SILP__
-    
+
     //SILP: DECLARE_LIST(ResponseListener, listener, ResponseListener, _responseListeners)
     private func getIndexOfResponseListener(listener: ResponseListener) -> Int? {  //__SILP__
         for (i, obj) in enumerate(_responseListeners) {                            //__SILP__
@@ -116,25 +116,25 @@ public final class Handler : BaseAspect {
         }                                                                          //__SILP__
         return false                                                               //__SILP__
     }                                                                              //__SILP__
-    
-    
+
+
     public final func handleRequest(req: Data?) -> Data? {
         if _handler == nil {
             return nil
         }
-        
+
         for checker in _requestCheckers {
             if !checker.isValid(req) {
                 return nil
             }
         }
-        
+
         for listener in _requestListeners {
             listener.onRequest(path, req: req)
         }
-        
+
         let res = _handler!.doHandle(path, req: req)
-        
+
         for listener in _responseListeners {
             listener.onResponse(path, req: req, res: res)
         }

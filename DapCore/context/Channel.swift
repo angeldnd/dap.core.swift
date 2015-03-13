@@ -16,10 +16,10 @@ public final class Channel : BaseAspect {
     public required init(entity: Entity, path: String) {
         super.init(entity: entity, path: path)
     }
-    
+
     private var _eventCheckers = [DataChecker]()
     private var _eventListeners = [EventListener]()
-    
+
     //SILP: DECLARE_LIST(EventChecker, listener, DataChecker, _eventCheckers)
     private func getIndexOfEventChecker(listener: DataChecker) -> Int? {  //__SILP__
         for (i, obj) in enumerate(_eventCheckers) {                       //__SILP__
@@ -45,7 +45,7 @@ public final class Channel : BaseAspect {
         }                                                                 //__SILP__
         return false                                                      //__SILP__
     }                                                                     //__SILP__
-    
+
     //SILP: DECLARE_LIST(EventListener, listener, EventListener, _eventListeners)
     private func getIndexOfEventListener(listener: EventListener) -> Int? {  //__SILP__
         for (i, obj) in enumerate(_eventListeners) {                         //__SILP__
@@ -71,7 +71,7 @@ public final class Channel : BaseAspect {
         }                                                                    //__SILP__
         return false                                                         //__SILP__
     }                                                                        //__SILP__
-    
+
     public final func fireEvent(evt: Data?) -> Bool {
         for checker in _eventCheckers {
             if !checker.isValid(evt) {
