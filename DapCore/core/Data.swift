@@ -60,16 +60,16 @@ public protocol DataChecker : class {
     public class func data() -> Data {
         return Data()
     }
-    
+
     private var _data = Dictionary<String, Any>()
-    
+
     public init() {
     }
-    
+
     public func getSize() -> Int32 {
         return (Int32)(_data.count);
     }
-    
+
     public func getKeys() -> [String] {
         var result = [String]()
         for key in _data.keys {
@@ -77,7 +77,7 @@ public protocol DataChecker : class {
         }
         return result
     }
-    
+
     public func getType(key: String) -> DataType? {
         if let value = _data[key] {
             switch value {
@@ -103,7 +103,7 @@ public protocol DataChecker : class {
         }
         return nil
     }
-    
+
     public func getTypeAsInt(key: String) -> Int32 {
         if let type = getType(key) {
             return type.rawValue

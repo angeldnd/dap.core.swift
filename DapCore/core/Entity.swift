@@ -58,7 +58,7 @@ public class Entity : DapObject {
                     if aspect.decode(aspectData) {
                         succeed = true
                     }
-                } else if let type = aspectsData.getString(DapObject.Consts.KeyType) {
+                } else if let type = aspectData.getString(DapObject.Consts.KeyType) {
                     if let aspect = factoryAspect(self, path: path, type: type) {
                         if aspect.decode(aspectData) {
                             setAspect(aspect)
