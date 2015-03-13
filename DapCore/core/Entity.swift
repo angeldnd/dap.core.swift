@@ -136,7 +136,7 @@ public class Entity : DapObject {
     internal final func setAspect(aspect: Aspect) {
         if let oldAspect = _aspects[aspect.path] {
             for watcher in _watchers {
-                watcher.onEntityAspectRemoved(self, aspect: aspect)
+                watcher.onEntityAspectRemoved(self, aspect: oldAspect)
             }
         }
         /* Note: checking aspect like following will cause the PlayGround to
