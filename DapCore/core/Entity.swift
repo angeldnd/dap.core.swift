@@ -124,7 +124,7 @@ public class Entity : DapObject {
         return result
     }
 
-    public final func all<T: Aspect>(pattern: String) -> [T] {
+    public final func all<T: Aspect>() -> [T] {
         let aspects:[T] = filter(PatternMatcher.Consts.WildcastSegments)
         return aspects
     }
