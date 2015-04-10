@@ -31,6 +31,7 @@ public final class Factory: Entity {
 
         result.registerAspect(Vars.Consts.TypeBoolVar, {BoolVar(entity: $0, path: $1)})
         result.registerAspect(Vars.Consts.TypeIntVar, {IntVar(entity: $0, path: $1)})
+        result.registerAspect(Vars.Consts.TypeLongVar, {LongVar(entity: $0, path: $1)})
         result.registerAspect(Vars.Consts.TypeFloatVar, {FloatVar(entity: $0, path: $1)})
         result.registerAspect(Vars.Consts.TypeDoubleVar, {DoubleVar(entity: $0, path: $1)})
         result.registerAspect(Vars.Consts.TypeStringVar, {StringVar(entity: $0, path: $1)})
@@ -40,6 +41,7 @@ public final class Factory: Entity {
 
         result.registerAspect(Properties.Consts.TypeBoolProperty, {BoolProperty(entity: $0, path: $1)})
         result.registerAspect(Properties.Consts.TypeIntProperty, {IntProperty(entity: $0, path: $1)})
+        result.registerAspect(Properties.Consts.TypeLongProperty, {LongProperty(entity: $0, path: $1)})
         result.registerAspect(Properties.Consts.TypeFloatProperty, {FloatProperty(entity: $0, path: $1)})
         result.registerAspect(Properties.Consts.TypeDoubleProperty, {DoubleProperty(entity: $0, path: $1)})
         result.registerAspect(Properties.Consts.TypeStringProperty, {StringProperty(entity: $0, path: $1)})
